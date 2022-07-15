@@ -3,7 +3,7 @@
 
 	<base href="<?php echo
 				isset($_SERVER["HTTPS"]) ? 'https://' . $_SERVER['HTTP_HOST'] : 'http://' . $_SERVER['HTTP_HOST'];
-				?>/estately/">
+				?>/project_estately/">
 	<!-- <base href="http://localhost/real-estate-web-app/"> -->
 	<!-- <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"> -->
 
