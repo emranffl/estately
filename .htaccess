@@ -1,0 +1,16 @@
+# restrict serving folder views
+Options All -Indexes
+
+# restrict serving hidden files & folders
+RedirectMatch 404 /\..*$
+
+# restrict serving backup/config/log/psd/sql files
+<FilesMatch "(\.(bak|config|dist|fla|inc|ini|log|psd|sh|sql|swp)|~)$">
+    ## Apache 2.2
+    Order allow,deny
+    Deny from all
+    Satisfy All
+
+    ## Apache 2.4
+    # Require all denied
+</FilesMatch>

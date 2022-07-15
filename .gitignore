@@ -1,0 +1,8 @@
+# MISC
+test.*
+resources/DB/DB.*.bak
+resources/DB/DB.dbs
+resource
+properties.php
+
+# ignore except

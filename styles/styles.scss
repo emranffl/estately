@@ -1,0 +1,257 @@
+$position-values: (
+  0: 0,
+  25: 25%,
+  50: 50%,
+  75: 75%,
+  100: 100%,
+);
+$enable-negative-margins: true;
+
+@import './scss/functions';
+@import './scss/variables';
+@import './scss/utilities';
+
+$utilities: (
+  map-merge(
+    $utilities,
+    (
+      'font-size': (
+        rfs: true,
+        property: font-size,
+        class: 'fs',
+        values: (
+          1: $h1-font-size,
+          2: $h2-font-size,
+          3: $h3-font-size,
+          4: $h4-font-size,
+          5: $h5-font-size,
+          6: $h6-font-size,
+          7: 0.9rem,
+        ),
+      ),
+      'color': (
+        property: color,
+        class: text,
+        local-vars: (
+          'text-opacity': 1,
+        ),
+        values:
+          map-merge(
+            $utilities-text-colors,
+            (
+              'warning-50': rgba($warning, 0.5),
+            )
+          ),
+      ),
+      'width': (
+        property: width,
+        class: w,
+        responsive: true,
+        values: (
+          25: 25%,
+          50: 50%,
+          75: 75%,
+          100: 100%,
+          auto: auto,
+        ),
+      ),
+      'max-width': (
+        property: max-width,
+        class: mw,
+        responsive: true,
+        values: (
+          50: 50%,
+          75: 75%,
+          100: 100%,
+        ),
+      ),
+      'min-viewport-height': (
+        property: min-height,
+        class: min-vh,
+        values: (
+          50: 50vh,
+          65: 65vh,
+          100: 100vh,
+        ),
+      ),
+      'flex': (
+        responsive: true,
+        property: flex,
+        values: (
+          fill: 1 1 auto,
+          auto: auto,
+          none: none,
+        ),
+      ),
+      'shadow': (
+        property: box-shadow,
+        class: shadow,
+        print: true,
+        values: (
+          null: $box-shadow,
+          sm: $box-shadow-sm,
+          lg: $box-shadow-lg,
+          none: none,
+        ),
+      ),
+      'rounded-start': (
+        property: border-bottom-left-radius border-top-left-radius,
+        class: rounded-start,
+        values: (
+          null: $border-radius,
+          0: 0,
+        ),
+      ),
+      'rounded-end': (
+        responsive: true,
+        property: border-top-right-radius border-bottom-right-radius,
+        class: rounded-end,
+        values: (
+          null: $border-radius,
+          0: 0,
+        ),
+      ),
+      'backdrop-filter': (
+        property: backdrop-filter,
+        class: bf-blur,
+        values: (
+          null: blur(3px),
+          md: blur(5px),
+          lg: blur(8px),
+        ),
+      ),
+    )
+  )
+);
+
+@import './scss/bootstrap';
+
+// custom css starts
+
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@200;300;400&display=swap');
+
+// $scrollbarTrackColor: #777;
+$scrollbarTrackAndBodyColor: linear-gradient(
+  to bottom,
+  #f0edef,
+  #eee8ee,
+  #e9e3ee,
+  #e2dff0,
+  #d9dbf1,
+  #d2d9f2,
+  #c9d7f3,
+  #c0d5f4,
+  #bad4f5,
+  #b3d2f6,
+  #acd1f7,
+  #a5d0f8
+);
+$scrollbarThumbColor: rgb(72, 130, 218);
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-color: $scrollbarTrackAndBodyColor $scrollbarThumbColor;
+  scrollbar-width: 0.7vw;
+  *::-webkit-scrollbar {
+    width: 7px;
+    height: 6px;
+  }
+  *::-webkit-scrollbar-thumb {
+    background-color: $scrollbarThumbColor;
+    border-radius: 0.5rem;
+    &:hover {
+      background-color: #221;
+    }
+  }
+  *::-webkit-scrollbar-track {
+    background-image: $scrollbarTrackAndBodyColor;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  // overflow-y: overlay;
+  font-family: 'Roboto Condensed', 'PT Sans', 'Open Sans', -apple-system,
+    BlinkMacSystemFont, 'Segoe UI', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+    'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  // background-image: $scrollbarTrackAndBodyColor;
+}
+
+input[type='checkbox'],
+input[type='radio'] {
+  height: 1.2rem;
+  width: 1.2rem;
+}
+
+// .btn-check:focus + .btn-outline-light,
+// .btn-check:focus + .btn,
+// .btn-check:checked + .btn-outline-dark:focus,
+// .btn-check:active + .btn-outline-dark:focus,
+// .btn-outline-dark:active:focus,
+// .btn-outline-dark.active:focus,
+// .btn-outline-danger:focus,
+// .btn-outline-dark:focus,
+// .btn-outline-light:focus,
+// .btn-outline-primary:focus,
+// .btn-danger:focus,
+// .btn-dark:focus,
+// .btn-light:focus,
+// .btn-primary:focus,
+// .btn-outline-dark.dropdown-toggle.show:focus {
+// 	outline: none !important;
+// 	box-shadow: none !important;
+// }
+
+// input:focus,
+// select:focus,
+// textarea:focus {
+// 	-moz-box-shadow: none !important;
+// 	-webkit-box-shadow: none !important;
+// 	box-shadow: none !important;
+// 	border: 1px solid #0f02c0;
+// 	outline-width: 0;
+// }
+
+.hvr-grow {
+  display: inline-block;
+  vertical-align: middle;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  transition-duration: 0.2s;
+  transition-property: transform;
+  &:hover,
+  &:focus,
+  &:active {
+    box-shadow: 0 0.7rem 1rem rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+  }
+}
+
+.hvr-float {
+  display: inline-block;
+  vertical-align: middle;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  transition-duration: 0.2s;
+  transition-property: transform;
+  &:hover {
+    box-shadow: 0 0.7rem 1.3rem rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+  }
+}
+
+.clamp-mw-50 {
+  max-width: clamp(320px, 50%, 425px) !important;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/* ------------------------- global ----------------------------- */
+
