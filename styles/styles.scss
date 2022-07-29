@@ -65,15 +65,15 @@ $utilities: (
           100: 100%,
         ),
       ),
-      'min-viewport-height': (
-        property: min-height,
-        class: min-vh,
-        values: (
-          50: 50vh,
-          65: 65vh,
-          100: 100vh,
-        ),
-      ),
+      // 'min-viewport-height': (
+      //   property: min-height,
+      //   class: min-vh,
+      //   values: (
+      //     50: 50vh,
+      //     65: 65vh,
+      //     100: 100vh,
+      //   ),
+      // ),
       'flex': (
         responsive: true,
         property: flex,

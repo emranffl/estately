@@ -1,6 +1,6 @@
 <?php
 require __DIR__ . '/../resources/DB/ORM/instance.php';
-require __DIR__ . '/../functionalities/console.php';
+foreach (glob(__DIR__ . '/../functionalities/*.php') as $functionalities) require $functionalities;
 
 try {
     // fetch here

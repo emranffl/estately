@@ -1,6 +1,6 @@
 <?php
 require __DIR__ . '/../resources/DB/ORM/instance.php';
-require __DIR__ . '/../functionalities/console.php';
+foreach (glob(__DIR__ . '/../functionalities/*.php') as $functionalities) require $functionalities;
 
 try {
     // fetch here
@@ -18,13 +18,13 @@ R::close();
 <!DOCTYPE html>
 
 <head>
-	<title>Vendor | Estately</title>
+    <title>Vendor | Estately</title>
 </head>
 <?php require '../layouts/vendor/headernav.php'; ?>
 
 <body>
-    
+
     <section class="container">please design me</section>
-    
+
     <?php require '../layouts/vendor/footer.php'; ?>
 </body>

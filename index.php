@@ -1,12 +1,13 @@
 <?php
 require __DIR__ . '/resources/DB/ORM/instance.php';
-require __DIR__ . '/functionalities/console.php';
+foreach (glob(__DIR__ . '/functionalities/*.php') as $functionalities) require $functionalities;
+
 
 try {
-    // fetch here
-    $var = R::getAll('Select * from vendor');
+	// fetch here
+	$var = R::getAll('Select * from user');
 } catch (PDOException $e) {
-    consoleError($e->getMessage());
+	consoleError($e->getMessage());
 }
 
 consoleLog($var);
@@ -27,6 +28,7 @@ R::close();
 			background-size: cover;
 			background-position: left top;
 			background-repeat: no-repeat;
+			min-height: 65vh;
 		}
 
 		.hero-section>div {
@@ -38,7 +40,7 @@ R::close();
 			width: -webkit-min-content;
 			width: -moz-min-content;
 			width: min-content;
-			font-size: 4.7rem;
+			font-size: 4.2rem;
 		}
 
 		.ml4 .letters {
@@ -54,8 +56,8 @@ R::close();
 
 <body>
 
-	<section class="container-fluid min-vh-65 d-flex align-items-start align-items-xl-center hero-section">
-		<div class="ps-3 ps-lg-5 py-5">
+	<section class="container-fluid d-flex align-items-start align-items-xl-center hero-section">
+		<div class="ps-3 ps-lg-5 py-5 bf-blur-lg">
 			<h1>Searching for your dream
 				<span class="text-primary ml4" id="hero-text-property-type">
 					<span class="opacity-0">apartment?</span>
@@ -71,46 +73,6 @@ R::close();
 				<a href="vendor/signup.php" target="blank" class="btn btn-sm btn-outline-primary hvr-float">
 					Sign Up as Vendor
 				</a>
-			</div>
-		</div>
-	</section>
-
-	<section class="">
-		<div class="container mt-n5 py-4 bg-light shadow rounded">
-			<h3 class="text-center mb-3">Find your custom real estate</h3>
-
-			<div class="row row-cols-1 row-cols-lg-2 row-cols-xl-4 mx-0">
-				<div class="col px-md-1 py-1 py-xl-0 d-flex">
-					<select class="form-select form-select-sm border-end-0 rounded-end-0" id="location" onchange="locationOnChange(this)">
-						<option value="null" hidden>Location</option>
-					</select>
-					<label class="d-inline-block p-2 border rounded-end-sm" for="location">
-						<i class="bi bi-geo-fill m-0"></i>
-					</label>
-				</div>
-				<div class="col px-md-1 py-1 py-xl-0 d-flex">
-					<select class="form-select form-select-sm border-end-0 rounded-end-0" id="type">
-						<option value="null" hidden>Type</option>
-						<option value="apartment">Apartment</option>
-						<option value="studio">Studio</option>
-					</select>
-					<label class="d-inline-block p-2 border rounded-end-sm" for="type">
-						<i class="bi bi-house-door-fill m-0"></i>
-					</label>
-				</div>
-				<div class="col px-md-1 py-1 py-xl-0 d-flex">
-					<select class="form-select form-select-sm border-end-0 rounded-end-0" id="budget">
-						<option value="null" hidden>Budget</option>
-						<option value="1">5000 - 10000</option>
-						<option value="2">10000 - 15000</option>
-					</select>
-					<label class="d-inline-block p-2 border rounded-end-sm" for="budget">
-						<i class="bi bi-currency-dollar fw-bold m-0"></i>
-					</label>
-				</div>
-				<div class="col px-md-1 py-1 py-xl-0">
-					<button class="btn btn-outline-dark hvr-float w-100">Search</button>
-				</div>
 			</div>
 		</div>
 	</section>
@@ -189,7 +151,7 @@ R::close();
 				$("#location").html(html)
 			})
 
-			// * animation specific
+			//* animation specific
 			let ml4 = {}
 			ml4.opacityIn = [0, 1]
 			ml4.scaleIn = [0.2, 1]

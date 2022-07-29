@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="MySql" id="Project_56cb2a" database="MySql" >
+	<schema name="project_estately" >
+		<table name="address" generator_rows="50" >
+			<column name="id" type="char" length="10" decimal="0" jt="1" mandatory="y" />
+			<column name="street_address" type="text" length="65535" decimal="0" jt="-1" mandatory="y" />
+			<column name="district" type="varchar" length="50" decimal="0" jt="12" mandatory="y" regexp="Bagerhat|Bandarban|Barguna|Barishal|Bhola|Bogura|Brahmanbaria|Chandpur|Chapai Nawabganj|Chattogram|Chuadanga|&quot;Cox&#039;s Bazar&quot;|Cumilla|Dhaka|Dinajpur|Faridpur|Feni|Gaibandha|Gazipur|Gopalganj|Habiganj|Jamalpur|Jashore|Jhalokati|Jhenaidah|Joypurhat|Khagrachari|Khulna|Kishoreganj|Kurigram|Kushtia|Lakshmipur|Lalmonirhat|Madaripur|Magura|Manikganj|Meherpur|Moulvibazar|Munshiganj|Mymensingh|Naogaon|Narail|Narayanganj|Narsingdi|Natore|Netrokona|Nilphamari|Noakhali|Pabna|Panchagarh|Patuakhali|Pirojpur|Rajbari|Rajshahi|Rangamati|Rangpur|Satkhira|Shariatpur|Sherpur|Sirajganj|Sunamganj|Sylhet|Tangail|Thakurgaon" />
+			<column name="division" type="varchar" length="50" decimal="0" jt="12" mandatory="y" regexp="Barishal|Chattogram|Dhaka|Khulna|Mymensingh|Rajshahi|Rangpur|Sylhet" />
+			<column name="latitude" type="decimal" length="10" decimal="5" jt="3" regexp="double:from=20.34;to=26.38;format=#####.#####;" />
+			<column name="longitude" type="decimal" length="10" decimal="5" jt="3" regexp="double:from=88.01;to=92.41;format=#####.#####;" />
+			<index name="pk_address" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="address_fk0" to_schema="project_estately" to_table="property" delete_action="cascade" update_action="cascade" >
+				<fk_column name="id" pk="id" />
+			</fk>
+		</table>
+		<table name="amenity" generator_rows="50" >
+			<column name="id" type="char" length="10" decimal="0" jt="1" mandatory="y" />
+			<column name="ac_type" type="enum" length="7" decimal="0" jt="12" regexp_nulls="45" >
+				<enumeration>&#039;Central&#039;,&#039;Split&#039;,&#039;Window&#039;</enumeration>
+			</column>
+			<column name="elevator" type="boolean" length="1" decimal="0" jt="-7" mandatory="y" >
+				<defo>0</defo>
+			</column>
+			<column name="gym" type="boolean" length="1" decimal="0" jt="-7" mandatory="y" >
+				<defo>0</defo>
+			</column>
+			<column name="laundry" type="boolean" length="1" decimal="0" jt="-7" mandatory="y" >
+				<defo>0</defo>
+			</column>
+			<column name="microwave" type="boolean" length="1" decimal="0" jt="-7" mandatory="y" >
+				<defo>0</defo>
+			</column>
+			<column name="parking" type="boolean" length="1" decimal="0" jt="-7" mandatory="y" >
+				<defo>0</defo>
+			</column>
+			<column name="pharmacy" type="boolean" length="1" decimal="0" jt="-7" mandatory="y" >
+				<defo>0</defo>
+			</column>
+			<column name="prayer_area" type="boolean" length="1" decimal="0" jt="-7" mandatory="y" >
+				<defo>0</defo>
+			</column>
+			<column name="refrigerator" type="boolean" length="1" decimal="0" jt="-7" mandatory="y" >
+				<defo>0</defo>
+			</column>
+			<column name="tv" type="boolean" length="1" decimal="0" jt="-7" mandatory="y" >
+				<defo>0</defo>
+			</column>
+			<column name="wheelchair" type="boolean" length="1" decimal="0" jt="-7" mandatory="y" >
+				<defo>0</defo>
+			</column>
+			<column name="wifi" type="boolean" length="1" decimal="0" jt="-7" mandatory="y" >
+				<defo>0</defo>
+			</column>
+			<index name="pk_amenity" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="amenity_fk0" to_schema="project_estately" to_table="property" delete_action="cascade" update_action="cascade" >
+				<fk_column name="id" pk="id" />
+			</fk>
+		</table>
+		<table name="apartment" generator_rows="30" >
+			<column name="id" type="char" length="10" decimal="0" jt="1" mandatory="y" />
+			<column name="area" type="smallint" length="5" decimal="0" jt="5" mandatory="y" unsigned="y" regexp="short:from=900;to=32768;format=#####.;" />
+			<column name="bedroom" type="smallint" length="5" decimal="0" jt="5" mandatory="y" unsigned="y" regexp="short:from=1;to=6;format=#####.;" />
+			<column name="attached_bathroom" type="smallint" length="5" decimal="0" jt="5" mandatory="y" unsigned="y" regexp="short:from=1;to=3;format=#####.;" />
+			<column name="bathroom" type="smallint" length="5" decimal="0" jt="5" mandatory="y" unsigned="y" regexp="short:from=1;to=5;format=#####.;" />
+			<column name="balcony" type="smallint" length="5" decimal="0" jt="5" mandatory="y" unsigned="y" regexp="short:from=0;to=5;format=#####.;" />
+			<column name="kitchen" type="smallint" length="5" decimal="0" jt="5" mandatory="y" unsigned="y" regexp="short:from=1;to=2;format=#####.;" />
+			<index name="pk_apartment" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="apartment_fk0" to_schema="project_estately" to_table="property" delete_action="cascade" update_action="cascade" >
+				<fk_column name="id" pk="id" />
+			</fk>
+		</table>
+		<table name="application" generator_rows="250" >
+			<column name="id" type="char" length="10" decimal="0" jt="1" mandatory="y" regexp="a[a-zA-Z0-9]{9}" />
+			<column name="property_id" type="char" length="10" decimal="0" jt="1" mandatory="y" />
+			<column name="user_email" type="varchar" length="50" decimal="0" jt="12" mandatory="y" />
+			<column name="reservation_fee" type="decimal" length="15" decimal="2" jt="3" mandatory="y" unsigned="y" regexp="double:from=500;to=50000;format=#############.##;" />
+			<column name="status" type="enum" length="8" decimal="0" jt="12" mandatory="y" >
+				<defo>&#039;Pending&#039;</defo>
+				<enumeration>&#039;Pending&#039;,&#039;Approved&#039;,&#039;Rejected&#039;</enumeration>
+			</column>
+			<column name="remarks" type="tinytext" length="255" decimal="0" jt="-1" />
+			<column name="applied_at" type="datetime" length="19" decimal="0" jt="93" mandatory="y" >
+				<defo>current_timestamp()</defo>
+			</column>
+			<column name="updated_at" type="datetime" length="19" decimal="0" jt="93" mandatory="y" >
+				<defo>current_timestamp()</defo>
+			</column>
+			<index name="pk_application" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="application_fk0" unique="NORMAL" >
+				<column name="property_id" options="ASC" />
+			</index>
+			<index name="application_fk1" unique="NORMAL" >
+				<column name="user_email" options="ASC" />
+			</index>
+			<fk name="application_fk0" to_schema="project_estately" to_table="property" delete_action="cascade" update_action="cascade" >
+				<fk_column name="property_id" pk="id" />
+			</fk>
+			<fk name="application_fk1" to_schema="project_estately" to_table="user" delete_action="cascade" update_action="cascade" >
+				<fk_column name="user_email" pk="email" />
+			</fk>
+		</table>
+		<table name="featured" >
+			<column name="id" type="char" length="10" decimal="0" jt="1" mandatory="y" />
+			<column name="log_id" type="char" length="10" decimal="0" jt="1" mandatory="y" />
+			<column name="paid_amount" type="decimal" length="15" decimal="2" jt="3" mandatory="y" unsigned="y" />
+			<column name="paid_at" type="datetime" length="19" decimal="0" jt="93" mandatory="y" >
+				<defo>current_timestamp()</defo>
+			</column>
+			<column name="status" type="enum" length="8" decimal="0" jt="12" mandatory="y" >
+				<defo>&#039;active&#039;</defo>
+				<enumeration>&#039;active&#039;,&#039;inactive&#039;</enumeration>
+			</column>
+			<index name="pk_featured" unique="PRIMARY_KEY" >
+				<column name="id" />
+				<column name="log_id" />
+			</index>
+			<fk name="featured_fk0" to_schema="project_estately" to_table="property" delete_action="cascade" update_action="cascade" >
+				<fk_column name="id" pk="id" />
+			</fk>
+		</table>
+		<table name="gallery" generator_rows="50" >
+			<column name="id" type="char" length="10" decimal="0" jt="1" mandatory="y" />
+			<column name="ordinal_number" type="tinyint" length="3" decimal="0" jt="-6" mandatory="y" regexp="short:from=0;to=6;format=###.;" />
+			<column name="image_source" type="varchar" length="500" decimal="0" jt="12" regexp="http://[a-z]{3,5}.(web|net|local)[a-z]{0,1}[0-9]{0,2}/([a-z]{5}/){1,4}[a-z]{3,5}.(webp|jpeg|jpg|png)" />
+			<index name="pk_gallery" unique="PRIMARY_KEY" >
+				<column name="id" />
+				<column name="ordinal_number" />
+			</index>
+			<fk name="gallery_fk0" to_schema="project_estately" to_table="property" delete_action="cascade" update_action="cascade" >
+				<fk_column name="id" pk="id" />
+			</fk>
+		</table>
+		<table name="lease_info" generator_rows="50" >
+			<column name="id" type="char" length="10" decimal="0" jt="1" mandatory="y" />
+			<column name="lease" type="decimal" length="15" decimal="2" jt="3" mandatory="y" unsigned="y" regexp="double:from=50000;to=50000000;format=#############.##;" />
+			<column name="terms" type="text" length="65535" decimal="0" jt="-1" />
+			<column name="tenure_months" type="smallint" length="5" decimal="0" jt="5" mandatory="y" regexp="short:from=24;to=600;format=#####.;" />
+			<column name="reservation_percentage" type="decimal" length="3" decimal="2" jt="3" mandatory="y" unsigned="y" regexp="double:from=0.02;to=0.2;format=#.##;" >
+				<defo>0.05</defo>
+			</column>
+			<column name="updated_at" type="datetime" length="19" decimal="0" jt="93" mandatory="y" >
+				<defo>current_timestamp()</defo>
+			</column>
+			<column name="termination_percentage" type="decimal" length="3" decimal="2" jt="3" unsigned="y" />
+			<index name="pk_lease_info" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="lease_fk0" to_schema="project_estately" to_table="property" delete_action="cascade" update_action="cascade" >
+				<fk_column name="id" pk="id" />
+			</fk>
+		</table>
+		<table name="lease_log" generator_rows="150" >
+			<column name="id" type="char" length="10" decimal="0" jt="1" mandatory="y" />
+			<column name="log_id" type="char" length="10" decimal="0" jt="1" mandatory="y" regexp="LLg[a-zA-Z0-9]{7}" />
+			<column name="user_email" type="varchar" length="50" decimal="0" jt="12" mandatory="y" />
+			<column name="lease_amount" type="decimal" length="15" decimal="2" jt="3" mandatory="y" unsigned="y" regexp="double:from=50000;to=50000000;format=#############.##;" />
+			<column name="lease_tenure" type="date" length="10" decimal="0" jt="91" mandatory="y" regexp="date:from=&#039;01.01.2022&#039;;to=&#039;01.01.2070&#039;;" />
+			<column name="paid_amount" type="decimal" length="15" decimal="2" jt="3" mandatory="y" unsigned="y" regexp="double:from=50000;to=50000000;format=#############.##;" />
+			<column name="due_amount" type="decimal" length="15" decimal="2" jt="3" unsigned="y" regexp="double:from=50000;to=500000;format=#############.##;" />
+			<column name="medium" type="varchar" length="50" decimal="0" jt="12" mandatory="y" regexp="bKash|UCash|Rocket|Nagad|MCash|SureCash|Upay" />
+			<column name="reference_log_id" type="char" length="10" decimal="0" jt="1" regexp="[a-zA-Z0-9]{10}" regexp_nulls="75" />
+			<column name="remarks" type="tinytext" length="255" decimal="0" jt="-1" />
+			<column name="paid_at" type="datetime" length="19" decimal="0" jt="93" mandatory="y" >
+				<defo>current_timestamp()</defo>
+			</column>
+			<column name="status" type="enum" length="8" decimal="0" jt="12" mandatory="y" >
+				<defo>&#039;Pending&#039;</defo>
+				<enumeration>&#039;Pending&#039;,&#039;Approved&#039;,&#039;Rejected&#039;</enumeration>
+			</column>
+			<index name="pk_lease_log" unique="PRIMARY_KEY" >
+				<column name="id" />
+				<column name="log_id" />
+			</index>
+			<index name="lease_log_fk1" unique="NORMAL" >
+				<column name="user_email" options="ASC" />
+			</index>
+			<fk name="lease_log_fk0" to_schema="project_estately" to_table="property" delete_action="cascade" update_action="cascade" >
+				<fk_column name="id" pk="id" />
+			</fk>
+			<fk name="lease_log_fk1" to_schema="project_estately" to_table="user" delete_action="cascade" update_action="cascade" >
+				<fk_column name="user_email" pk="email" />
+			</fk>
+		</table>
+		<table name="property" generator_rows="50" >
+			<column name="id" type="char" length="10" decimal="0" jt="1" mandatory="y" regexp="[a-zA-Z0-9]{10}" />
+			<column name="name" type="varchar" length="100" decimal="0" jt="12" mandatory="y" />
+			<column name="type" type="enum" length="9" decimal="0" jt="12" mandatory="y" >
+				<enumeration>&#039;Apartment&#039;,&#039;Studio&#039;</enumeration>
+			</column>
+			<column name="vendor_email" type="varchar" length="50" decimal="0" jt="12" mandatory="y" />
+			<column name="description" type="tinytext" length="255" decimal="0" jt="-1" />
+			<column name="created_at" type="datetime" length="19" decimal="0" jt="93" mandatory="y" >
+				<defo>current_timestamp()</defo>
+			</column>
+			<column name="updated_at" type="datetime" length="19" decimal="0" jt="93" mandatory="y" >
+				<defo>current_timestamp()</defo>
+			</column>
+			<column name="enlisted_for" type="enum" length="5" decimal="0" jt="12" mandatory="y" >
+				<enumeration>&#039;Rent&#039;,&#039;Lease&#039;,&#039;Both&#039;</enumeration>
+			</column>
+			<column name="availability_status" type="enum" length="6" decimal="0" jt="12" mandatory="y" >
+				<defo>&#039;vacant&#039;</defo>
+				<enumeration>&#039;vacant&#039;,&#039;rented&#039;,&#039;leased&#039;</enumeration>
+			</column>
+			<column name="post" type="enum" length="6" decimal="0" jt="12" mandatory="y" >
+				<defo>&#039;draft&#039;</defo>
+				<enumeration>&#039;draft&#039;,&#039;public&#039;</enumeration>
+			</column>
+			<index name="pk_property" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="property_fk0" unique="NORMAL" >
+				<column name="vendor_email" options="ASC" />
+			</index>
+			<fk name="property_fk0" to_schema="project_estately" to_table="vendor" delete_action="cascade" update_action="cascade" >
+				<fk_column name="vendor_email" pk="email" />
+			</fk>
+		</table>
+		<table name="rent_info" generator_rows="50" >
+			<column name="id" type="char" length="10" decimal="0" jt="1" mandatory="y" />
+			<column name="rent" type="decimal" length="15" decimal="2" jt="3" mandatory="y" unsigned="y" regexp="double:from=10000;to=150000;format=#############.##;" />
+			<column name="terms" type="text" length="65535" decimal="0" jt="-1" />
+			<column name="reservation_percentage" type="decimal" length="3" decimal="2" jt="3" mandatory="y" unsigned="y" regexp="double:from=0.02;to=0.2;format=#.##;" >
+				<defo>0.05</defo>
+			</column>
+			<column name="updated_at" type="datetime" length="19" decimal="0" jt="93" mandatory="y" >
+				<defo>current_timestamp()</defo>
+			</column>
+			<index name="pk_rent_info" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="rent_fk0" to_schema="project_estately" to_table="property" delete_action="cascade" update_action="cascade" >
+				<fk_column name="id" pk="id" />
+			</fk>
+		</table>
+		<table name="rent_log" generator_rows="500" >
+			<column name="id" type="char" length="10" decimal="0" jt="1" mandatory="y" />
+			<column name="log_id" type="char" length="10" decimal="0" jt="1" mandatory="y" regexp="RLg[a-zA-Z0-9]{7}" />
+			<column name="user_email" type="varchar" length="50" decimal="0" jt="12" mandatory="y" />
+			<column name="rent_amount" type="decimal" length="15" decimal="2" jt="3" mandatory="y" unsigned="y" regexp="double:from=10000;to=150000;format=#############.##;" />
+			<column name="paid_amount" type="decimal" length="15" decimal="2" jt="3" mandatory="y" unsigned="y" regexp="double:from=10000;to=150000;format=#############.##;" />
+			<column name="medium" type="varchar" length="50" decimal="0" jt="12" mandatory="y" regexp="bKash|UCash|Rocket|Nagad|MCash|SureCash|Upay" />
+			<column name="paid_for" type="date" length="10" decimal="0" jt="91" mandatory="y" />
+			<column name="paid_at" type="datetime" length="19" decimal="0" jt="93" mandatory="y" >
+				<defo>current_timestamp()</defo>
+			</column>
+			<column name="status" type="enum" length="8" decimal="0" jt="12" mandatory="y" >
+				<defo>&#039;Pending&#039;</defo>
+				<enumeration>&#039;Pending&#039;,&#039;Approved&#039;,&#039;Rejected&#039;</enumeration>
+			</column>
+			<index name="pk_rent_log" unique="PRIMARY_KEY" >
+				<column name="id" />
+				<column name="log_id" />
+			</index>
+			<index name="rent_log_fk1" unique="NORMAL" >
+				<column name="user_email" options="ASC" />
+			</index>
+			<fk name="rent_log_fk0" to_schema="project_estately" to_table="property" delete_action="cascade" update_action="cascade" >
+				<fk_column name="id" pk="id" />
+			</fk>
+			<fk name="rent_log_fk1" to_schema="project_estately" to_table="user" delete_action="cascade" update_action="cascade" >
+				<fk_column name="user_email" pk="email" />
+			</fk>
+		</table>
+		<table name="studio" generator_rows="50" >
+			<column name="id" type="char" length="10" decimal="0" jt="1" mandatory="y" />
+			<column name="area" type="smallint" length="5" decimal="0" jt="5" mandatory="y" unsigned="y" regexp="short:from=700;to=32768;format=#####.;" />
+			<column name="length" type="smallint" length="5" decimal="0" jt="5" mandatory="y" unsigned="y" regexp="short:from=50;to=500;format=#####.;" />
+			<column name="breadth" type="smallint" length="5" decimal="0" jt="5" mandatory="y" unsigned="y" regexp="short:from=30;to=300;format=#####.;" />
+			<column name="separate_bedroom" type="boolean" length="1" decimal="0" jt="-7" mandatory="y" regexp="boolean:percent_true=0.2" >
+				<defo>0</defo>
+			</column>
+			<column name="balcony" type="boolean" length="1" decimal="0" jt="-7" mandatory="y" regexp="boolean:percent_true=0.75" >
+				<defo>0</defo>
+			</column>
+			<index name="pk_studio" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="studio_fk0" to_schema="project_estately" to_table="property" delete_action="cascade" update_action="cascade" >
+				<fk_column name="id" pk="id" />
+			</fk>
+		</table>
+		<table name="user" generator_rows="5" >
+			<column name="email" type="varchar" length="50" decimal="0" jt="12" mandatory="y" regexp="[a-z]{4,8}([0-9]{0,3}|.[a-z]{4,10})@example.com" />
+			<column name="password" type="varchar" length="50" decimal="0" jt="12" mandatory="y" regexp="[1-5W][A-Z][ASX][A-Z0-9]{5}1[0-9][A-Z][0-9]{6}" />
+			<column name="name" type="varchar" length="50" decimal="0" jt="12" mandatory="y" />
+			<column name="mobile_no" type="char" length="11" decimal="0" jt="1" mandatory="y" regexp="01[3-9]{9}" />
+			<column name="document_id" type="char" length="17" decimal="0" jt="1" mandatory="y" regexp="[1-9]{1}([0-9]{9}|[0-9]{16})" />
+			<column name="joined_on" type="datetime" length="19" decimal="0" jt="93" mandatory="y" >
+				<defo>current_timestamp()</defo>
+			</column>
+			<index name="pk_user" unique="PRIMARY_KEY" >
+				<column name="email" />
+			</index>
+			<index name="document_id" unique="UNIQUE" >
+				<column name="document_id" options="ASC" />
+			</index>
+			<index name="mobile_no" unique="UNIQUE" >
+				<column name="mobile_no" options="ASC" />
+			</index>
+		</table>
+		<table name="vendor" generator_rows="10" >
+			<column name="email" type="varchar" length="50" decimal="0" jt="12" mandatory="y" regexp="[a-z]{4,8}([0-9]{0,3}|.[a-z]{4,10})@example.com" />
+			<column name="password" type="varchar" length="50" decimal="0" jt="12" mandatory="y" regexp="[1-5W][A-Z][ASX][A-Z0-9]{5}1[0-9][A-Z][0-9]{6}" />
+			<column name="name" type="varchar" length="50" decimal="0" jt="12" mandatory="y" />
+			<column name="mobile_no" type="char" length="11" decimal="0" jt="1" mandatory="y" regexp="01[3-9]{9}" />
+			<column name="document_id" type="char" length="17" decimal="0" jt="1" mandatory="y" regexp="[1-9]{1}([0-9]{9}|[0-9]{16})" />
+			<column name="joined_on" type="datetime" length="19" decimal="0" jt="93" mandatory="y" >
+				<defo>current_timestamp()</defo>
+			</column>
+			<index name="pk_vendor" unique="PRIMARY_KEY" >
+				<column name="email" />
+			</index>
+			<index name="document_id" unique="UNIQUE" >
+				<column name="document_id" options="ASC" />
+			</index>
+			<index name="mobile_no" unique="UNIQUE" >
+				<column name="mobile_no" options="ASC" />
+			</index>
+		</table>
+	</schema>
+	<connector name="Local MySql" database="MySql" driver_class="com.mysql.jdbc.Driver" driver_jar="mysql-connector-java-8.0.18.jar" driver_desc="Standard" host="localhost" port="3306" instance="project_estately" user="root" />
+	<layout name="Default Layout" id="Layout_1863e8c" joined_routing="y" show_column_type="y" show_relation="name" >
+		<comment><![CDATA[MySql]]></comment>
+		<entity schema="project_estately" name="gallery" color="FFFF66" x="384" y="144" />
+		<entity schema="project_estately" name="vendor" color="D1BEF4" x="1008" y="208" />
+		<entity schema="project_estately" name="user" color="BED3F4" x="1008" y="512" />
+		<entity schema="project_estately" name="property" color="FFFF66" x="656" y="80" />
+		<entity schema="project_estately" name="apartment" color="FFFF66" x="80" y="80" />
+		<entity schema="project_estately" name="studio" color="FFFF66" x="64" y="320" />
+		<entity schema="project_estately" name="rent_info" color="FFFF66" x="48" y="560" />
+		<entity schema="project_estately" name="address" color="FFFF66" x="416" y="304" />
+		<entity schema="project_estately" name="lease_info" color="FFFF66" x="352" y="544" />
+		<entity schema="project_estately" name="featured" color="FFFF66" x="688" y="304" />
+		<entity schema="project_estately" name="amenity" color="FFFF66" x="688" y="464" />
+		<entity schema="project_estately" name="application" color="990000" x="1296" y="560" />
+		<entity schema="project_estately" name="rent_log" color="990000" x="1296" y="336" />
+		<entity schema="project_estately" name="lease_log" color="990000" x="1280" y="80" />
+		<group name="vendor" color="F0ECF7" >
+			<entity schema="project_estately" name="vendor" />
+		</group>
+		<group name="user" color="C4E0F9" >
+			<entity schema="project_estately" name="user" />
+		</group>
+		<group name="system" color="990000" >
+			<entity schema="project_estately" name="rent_log" />
+			<entity schema="project_estately" name="lease_log" />
+			<entity schema="project_estately" name="application" />
+		</group>
+		<group name="property" color="FFFF66" >
+			<entity schema="project_estately" name="property" />
+			<entity schema="project_estately" name="address" />
+			<entity schema="project_estately" name="amenity" />
+			<entity schema="project_estately" name="lease_info" />
+			<entity schema="project_estately" name="rent_info" />
+			<entity schema="project_estately" name="studio" />
+			<entity schema="project_estately" name="apartment" />
+			<entity schema="project_estately" name="gallery" />
+			<entity schema="project_estately" name="featured" />
+		</group>
+	</layout>
+</project>
