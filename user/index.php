@@ -2,7 +2,8 @@
 require __DIR__ . '/../resources/DB/ORM/instance.php';
 foreach (glob(__DIR__ . '/../functionalities/*.php') as $functionalities) require $functionalities;
 
-session_start();
+if (session_status() !== PHP_SESSION_ACTIVE)
+    session_start();
 
 $email = $password = '';
 $errors = array('email' => '', 'password' => '');
@@ -64,7 +65,7 @@ if (isset($_POST['submit'])) {
 
                 // redirect after login
                 $_POST['submit'] == '' || $_SERVER['QUERY_STRING'] == 'session=end' ?
-                    header('Location: /project_estately/index.php', true, 307)
+                    header('Location: /project_estately/user/dashboard.php', true, 307)
                     : header('Location:' . $_POST['submit'], true, 307);
 
                 // stop further php execution
@@ -78,7 +79,7 @@ if (isset($_POST['submit'])) {
 
 
 // redirect after logging out & login page visit after logged in
-if ($_SESSION['name'] && $_COOKIE['name']) {
+if (isset($_SESSION['name']) && isset($_COOKIE['name'])) {
     header('Location: /project_estately/index.php');
 }
 
@@ -107,7 +108,7 @@ if ($_SESSION['name'] && $_COOKIE['name']) {
 
                     <div class="mb-4">
                         <label for="loginPassword" class="form-label">Password</label>
-                        <input type="text" name="password" value="<?php echo htmlspecialchars($password) ?>" class="form-control <?php echo $errors['password'] ? 'is-invalid' : '' ?>" id="loginPassword" placeholder="4-25 characters">
+                        <input type="password" name="password" value="<?php echo htmlspecialchars($password) ?>" class="form-control <?php echo $errors['password'] ? 'is-invalid' : '' ?>" id="loginPassword" placeholder="4-25 characters">
                         <small class="invalid-feedback" id="loginPasswordFeedback"><?php echo $errors['password'] ?></small>
                     </div>
 

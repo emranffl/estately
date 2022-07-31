@@ -46,10 +46,11 @@
 			</div>
 			<div class="">
 				<?php
-				session_start();
+				if (session_status() !== PHP_SESSION_ACTIVE)
+					session_start();
 
 				//* on logout
-				if ($_SESSION['name'] && $_SERVER['QUERY_STRING'] == 'session=end') {
+				if (session_status() == PHP_SESSION_ACTIVE && isset($_SESSION['name']) && $_SERVER['QUERY_STRING'] == 'session=end') {
 					// removing server sessions
 					session_unset();
 
@@ -58,7 +59,7 @@
 					setcookie('email', '', time() - 60, '/');
 				}
 
-				echo !$_SESSION['name'] && !$_COOKIE['name'] ? <<<D1
+				echo session_status() == PHP_SESSION_ACTIVE && !isset($_SESSION['name']) && !isset($_COOKIE['name'])  ? <<<D1
 					<div>
 						<a href="user/index.php" class="btn px-0" onclick="(() => {
 							//* appending redirect link if not in login page
