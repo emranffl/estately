@@ -46,20 +46,26 @@
 			</div>
 			<div class="">
 				<?php
-				if (session_status() !== PHP_SESSION_ACTIVE)
+				if (session_status() == PHP_SESSION_NONE)
 					session_start();
 
 				//* on logout
-				if (session_status() == PHP_SESSION_ACTIVE && isset($_SESSION['name']) && $_SERVER['QUERY_STRING'] == 'session=end') {
+				if (session_status() == PHP_SESSION_ACTIVE && isset($_SESSION['name']) && isset($_COOKIE['name']) && $_SERVER['QUERY_STRING'] == 'session=end') {
 					// removing server sessions
 					session_unset();
 
 					// removing browser cookies
 					setcookie('name', '', time() - 60, '/');
 					setcookie('email', '', time() - 60, '/');
+
+					// redirect to login page
+					header('Location: /project_estately/user/index.php');
 				}
 
-				echo session_status() == PHP_SESSION_ACTIVE && !isset($_SESSION['name']) && !isset($_COOKIE['name'])  ? <<<D1
+				$profileName = htmlspecialchars($_COOKIE['name']);
+				$profileEmail = htmlspecialchars($_COOKIE['email']);
+
+				echo session_status() != PHP_SESSION_DISABLED  && !isset($_SESSION['name']) && !isset($_COOKIE['name'])  ? <<<D1
 					<div>
 						<a href="user/index.php" class="btn px-0" onclick="(() => {
 							//* appending redirect link if not in login page
@@ -72,13 +78,13 @@
 				D1 : <<<D2
 					<div class="text-secondary dropdown">
 						<span class="dropdown-toggle text-dark" role="button" data-bs-toggle="dropdown" data-bs-offset="-20,0">
-							{$_COOKIE['name']}
+							{$profileName}
 						</span>
 						<ul class="dropdown-menu dropdown-menu-light">
-							<li><a class="dropdown-item" href="user/profile.php?user={$_COOKIE['email']}">Profile</a></li>
-							<li><a class="dropdown-item" href="user/dashboard.php?user={$_COOKIE['email']}">Dashboard</a></li>
+							<li><a class="dropdown-item" href="user/profile.php?user={$profileEmail}">Profile</a></li>
+							<li><a class="dropdown-item" href="user/dashboard.php?user={$profileEmail}">Dashboard</a></li>
 							<li><hr class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="user/index.php?session=end">Logout</a></li>
+							<li><a class="dropdown-item" href="layouts/app/headernav.php?session=end">Logout</a></li>
 						</ul>
 					</div>
 				D2; ?>

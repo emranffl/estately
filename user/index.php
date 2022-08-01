@@ -2,14 +2,19 @@
 require __DIR__ . '/../resources/DB/ORM/instance.php';
 foreach (glob(__DIR__ . '/../functionalities/*.php') as $functionalities) require $functionalities;
 
-if (session_status() !== PHP_SESSION_ACTIVE)
+if (session_status() == PHP_SESSION_NONE)
     session_start();
+
+// redirect on login page visit after logged in
+if (isClientLoggedIn())
+    header('Location: /project_estately/index.php');
+
 
 $email = $password = '';
 $errors = array('email' => '', 'password' => '');
 
 //* on form submit
-if (isset($_POST['submit'])) {
+if (isset($_POST['login']) && $_POST['login'] == 'true') {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
@@ -39,7 +44,7 @@ if (isset($_POST['submit'])) {
             $user = R::getAssocRow(
                 "SELECT name, email, password FROM user WHERE email = '" . $email . "'"
             );
-            $user = $user[0];
+            $user = $user[0]; // extracting user from array 
         } catch (PDOException $e) {
             consoleError($e->getMessage());
         }
@@ -63,10 +68,10 @@ if (isset($_POST['submit'])) {
                 setcookie('name', $user['name'], time() + (86400 * 30), '/');
                 setcookie('email', $user['email'], time() + (86400 * 30), '/');
 
-                // redirect after login
-                $_POST['submit'] == '' || $_SERVER['QUERY_STRING'] == 'session=end' ?
-                    header('Location: /project_estately/user/dashboard.php', true, 307)
-                    : header('Location:' . $_POST['submit'], true, 307);
+                //* redirect after login
+                preg_match('/^redirect=/', $_SERVER['QUERY_STRING']) ?
+                    header('Location:' . str_replace('redirect=', '', $_SERVER['QUERY_STRING']), true, 307)
+                    : header('Location: /project_estately/user/dashboard.php', true, 307);
 
                 // stop further php execution
                 exit();
@@ -75,12 +80,6 @@ if (isset($_POST['submit'])) {
             $errors['email'] = 'user not found';
         }
     }
-}
-
-
-// redirect after logging out & login page visit after logged in
-if (isset($_SESSION['name']) && isset($_COOKIE['name'])) {
-    header('Location: /project_estately/index.php');
 }
 
 ?>
@@ -112,14 +111,17 @@ if (isset($_SESSION['name']) && isset($_COOKIE['name'])) {
                         <small class="invalid-feedback" id="loginPasswordFeedback"><?php echo $errors['password'] ?></small>
                     </div>
 
-                    <a href="reset.php" class="btn ps-0 pt-0 link-danger">Forgot password?</a>
+                    <a href="reset.php" class="link-danger text-decoration-none fs-6">Forgot password?</a>
 
                     <div class="text-center text-md-start mt-2 pt-2">
-                        <button type="submit" name="submit" onclick="(()=>{
+                        <button type="submit" name="login" value="true" onclick="(()=>{
                             //* passing redirect link to the server in value attribute
-                            this.value = window.location.search.replace('?redirect=', '')
+                            // window.location += '?redirect='
+                            // search.replace('?redirect=', '')
                             })()" class="btn btn-sm btn-primary w-75 w-md-100">Login</button>
-                        <small class="d-block fw-bold mt-2">Don't have an account? <a href="user/signup.php" class="btn ps-0 pt-0 link-primary">Sign Up</a></small>
+                        <small class="d-block mt-2 me-1">Don't have an account?
+                            <a href="user/signup.php" class="link-primary text-decoration-none fs-6">Sign Up</a>
+                        </small>
                     </div>
 
                 </form>
