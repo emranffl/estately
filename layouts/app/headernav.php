@@ -1,3 +1,8 @@
+<?php
+if (session_status() == PHP_SESSION_NONE)
+	session_start();
+?>
+
 <html lang="en" dir="ltr">
 
 <?php require __DIR__ . '/../masterheader.php'; ?>
@@ -7,6 +12,8 @@
 </head>
 
 <body>
+	<!-- //* loading animation -->
+	<?php require __DIR__ . '/../../components/global/loadinganimation.php'; ?>
 
 	<nav class="navbar navbar-expand-lg sticky-top navbar-light bg-light">
 		<div class="container">
@@ -46,8 +53,6 @@
 			</div>
 			<div class="">
 				<?php
-				if (session_status() == PHP_SESSION_NONE)
-					session_start();
 
 				//* create a new session if cookies exist
 				if (session_status() != PHP_SESSION_DISABLED && isset($_COOKIE['name']) && isset($_COOKIE['email'])) {
@@ -61,10 +66,10 @@
 					&& isset($_SESSION['name']) && isset($_COOKIE['name'])
 					&& $_SERVER['QUERY_STRING'] == 'session=end'
 				) {
-					// removing server sessions
+					// remove server sessions
 					session_unset();
 
-					// removing browser cookies
+					// remove browser cookies
 					setcookie('name', '', time() - 60, '/');
 					setcookie('email', '', time() - 60, '/');
 
@@ -72,20 +77,25 @@
 					header('Location: /project_estately/user/index.php');
 				}
 
-				$profileName = htmlspecialchars($_COOKIE['name']);
-				$profileEmail = htmlspecialchars($_COOKIE['email']);
 
-				echo session_status() != PHP_SESSION_DISABLED  && !isset($_SESSION['name']) && !isset($_COOKIE['name'])  ? <<<D1
+
+				if (session_status() != PHP_SESSION_DISABLED  && !isset($_SESSION['name']) && !isset($_COOKIE['name'])) {
+					echo <<<D1
 					<div>
 						<a href="user/index.php" class="btn px-0" onclick="(() => {
-							//* appending redirect link if not in login page
+							//* append redirect link if not in login page
 							if(this.href != window.location.origin + window.location.pathname) 
-							this.href += '?redirect='+ window.location
-						})()">Login</a>
+								this.href += '?redirect='+ window.location
+							})()">Login</a>
 						<small class="pe-1 fw-bold">|</small>
 						<a href="user/signup.php" class="btn btn-sm btn-outline-dark">Sign Up</a>
 					</div>
-				D1 : <<<D2
+					D1;
+				} else {
+					$profileName = htmlspecialchars($_COOKIE['name']);
+					$profileEmail = htmlspecialchars($_COOKIE['email']);
+
+					echo <<<D2
 					<div class="text-secondary dropdown">
 						<span class="dropdown-toggle text-dark" role="button" data-bs-toggle="dropdown" data-bs-offset="-20,0">
 							{$profileName}
@@ -97,7 +107,9 @@
 							<li><a class="dropdown-item" href="layouts/app/headernav.php?session=end">Logout</a></li>
 						</ul>
 					</div>
-				D2; ?>
+				D2;
+				}
+				?>
 			</div>
 		</div>
 	</nav>

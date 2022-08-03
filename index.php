@@ -130,7 +130,7 @@ R::close();
 
 
 	<?php require 'layouts/app/footer.php'; ?>
-	<script defer type="text/javascript">
+	<script type="text/javascript">
 		$(function() {
 			console.log("ready!")
 

@@ -7,6 +7,8 @@
 </head>
 
 <body>
+	<!-- //* loading animation -->
+	<?php require __DIR__ . '/../../components/global/loadinganimation.php'; ?>
 
 	<nav class="navbar navbar-expand-lg sticky-top navbar-light bg-light">
 		<div class="container">

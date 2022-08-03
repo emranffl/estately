@@ -2,10 +2,13 @@
 require __DIR__ . '/../../../resources/DB/ORM/instance.php';
 
 if (isset(getallheaders()['offset'])) {
+    $type = getallheaders()['type'] != 'null' ? getallheaders()['type'] : null;
+    $limit = 4;
     $sql = "
         SELECT
         p.id AS 'id',
         name,
+        type,
        -- vendor_email,
        -- description,
         enlisted_for,
@@ -35,9 +38,10 @@ if (isset(getallheaders()['offset'])) {
     WHERE
         p.availability_status = 'vacant' 
     AND 
-        p.post = 'public'
-    LIMIT 2
-    OFFSET " . getallheaders()['offset'];
+        p.post = 'public'";
+
+    $type ? ($sql .= " AND type = '$type'") : null;
+    $sql .= " LIMIT $limit OFFSET " . getallheaders()['offset'];
 
     try {
         // fetch here
@@ -49,7 +53,12 @@ if (isset(getallheaders()['offset'])) {
     // close connection
     R::close();
 
-    echo json_encode($retrievedData, JSON_FORCE_OBJECT);
+    require __DIR__ . '/../../../components/app/propertycard.php';
+
+    echo json_encode(array(
+        'data' => getPropertyCards($retrievedData),
+        'eoq' => sizeof($retrievedData) < $limit,
+    ), JSON_HEX_QUOT | JSON_HEX_TAG | JSON_UNESCAPED_SLASHES);
 } else {
     echo json_encode(array('error' => "Invalid query!"), JSON_FORCE_OBJECT);
 }

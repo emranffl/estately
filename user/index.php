@@ -44,7 +44,7 @@ if (isset($_POST['login']) && $_POST['login'] == 'true') {
             $user = R::getAssocRow(
                 "SELECT name, email, password FROM user WHERE email = '" . $email . "'"
             );
-            $user = $user[0]; // extracting user from array 
+            $user = $user[0]; // extract user from array 
         } catch (PDOException $e) {
             consoleError($e->getMessage());
         }
@@ -53,18 +53,18 @@ if (isset($_POST['login']) && $_POST['login'] == 'true') {
         R::close();
 
 
-        //* validating user
+        //* validate user
         if ($user) {
             if ($user['password'] != $password)
                 $errors['password'] = 'password mismatch';
             else {
                 $errors['password'] = '';
 
-                //* setting server sessions 
+                //* set server sessions 
                 $_SESSION['name'] = $user['name'];
                 $_SESSION['email'] = $user['email'];
 
-                //* setting browser cookies
+                //* set browser cookies
                 setcookie('name', $user['name'], time() + (86400 * 30), '/');
                 setcookie('email', $user['email'], time() + (86400 * 30), '/');
 
@@ -114,11 +114,7 @@ if (isset($_POST['login']) && $_POST['login'] == 'true') {
                     <a href="reset.php" class="link-danger text-decoration-none fs-6">Forgot password?</a>
 
                     <div class="text-center text-md-start mt-2 pt-2">
-                        <button type="submit" name="login" value="true" onclick="(()=>{
-                            //* passing redirect link to the server in value attribute
-                            // window.location += '?redirect='
-                            // search.replace('?redirect=', '')
-                            })()" class="btn btn-sm btn-primary w-75 w-md-100">Login</button>
+                        <button type="submit" name="login" value="true" class="btn btn-sm btn-primary w-75 w-md-100">Login</button>
                         <small class="d-block mt-2 me-1">Don't have an account?
                             <a href="user/signup.php" class="link-primary text-decoration-none fs-6">Sign Up</a>
                         </small>

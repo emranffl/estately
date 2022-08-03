@@ -1,6 +1,7 @@
 # MISC
 test.*
 resource
+command
 .vscode
 
 # ignore except

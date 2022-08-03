@@ -12,7 +12,7 @@ function consoleLog($data)
         echo "<script>console.log($js)</script>";
         return;
     }
-    echo "<script>console.log('$data')</script>";
+    echo "<script>console.log(`$data`)</script>";
 }
 
 /**
@@ -27,7 +27,7 @@ function consoleWarn($data)
         echo "<script>console.warn($js)</script>";
         return;
     }
-    echo "<script>console.warn('$data')</script>";
+    echo "<script>console.warn(`$data`)</script>";
 }
 
 /**
@@ -42,5 +42,5 @@ function consoleError($data)
         echo "<script>console.error($js)</script>";
         return;
     }
-    echo "<script>console.error('$data')</script>";
+    echo "<script>console.error(`$data`)</script>";
 }

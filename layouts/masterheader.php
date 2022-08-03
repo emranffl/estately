@@ -21,12 +21,14 @@
 
 	<!-- //* initializations -->
 	<script defer type="module">
-		let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]')),
-			tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-				return new window.bootstrap.Tooltip(tooltipTriggerEl)
-			})
+		// declare tooltip initialization in global window namespace
+		window.initializeTooltips = () => {
+			let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]')),
+				tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+					return new window.bootstrap.Tooltip(tooltipTriggerEl)
+				})
+		}
+
+		initializeTooltips()
 	</script>
 </head>
-
-<!-- //* loading animation -->
-<?php require __DIR__ . '/../components/global/loadinganimation.php'; ?>
