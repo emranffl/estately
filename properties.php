@@ -4,8 +4,12 @@ foreach (glob(__DIR__ . '/functionalities/*.php') as $functionalities) {
     require $functionalities;
 }
 
+// property district
+$location = $_GET['location'] ?? null;
+// property type
+$type = $_GET['type'] ?? null;
+// property id
 $id = $_GET['id'] ?? null;
-$type = ucwords($_GET['type']) ?? null;
 
 $sql = "
     SELECT
@@ -15,8 +19,6 @@ $sql = "
         enlisted_for,
         district,
         division,
-       -- latitude,
-       -- longitude,
         ac_type,
         elevator,
         gym,
@@ -40,8 +42,9 @@ $sql = "
     AND 
         p.post = 'public'";
 
+$location ? ($sql .= " AND district = '$location'") : null;
 $type ? ($sql .= " AND type = '$type'") : null;
-// $id ? ($sql .= " AND p.id = '$id'") : null;
+$id ? ($sql .= " AND p.id = '$id'") : null;
 
 $sql .= " LIMIT 7";
 
@@ -88,7 +91,7 @@ R::close();
 <?php require 'layouts/app/headernav.php'; ?>
 
 <body>
-    <!-- //* top section -->
+    <!-- //* hero section -->
     <section class="container-fluid hero-section">
         <div class="bf-blur">
             <div class="container h-100 d-flex align-items-center"><span class="text-light fs-1">Properties</span></div>
@@ -102,7 +105,7 @@ R::close();
 
             <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-4 mx-0">
                 <div class="col px-md-1 py-1 py-xl-0 d-flex">
-                    <select class="form-select form-select-sm border-end-0 rounded-end-0" id="location" onchange="locationOnChange(this)">
+                    <select class="form-select form-select-sm border-end-0 rounded-end-0" id="location" onchange="districtUpdated(this)">
                         <option value="null" hidden>Location</option>
                     </select>
                     <label class="d-inline-block p-2 border rounded-end-sm" for="location">
@@ -110,7 +113,7 @@ R::close();
                     </label>
                 </div>
                 <div class="col px-md-1 py-1 py-xl-0 d-flex">
-                    <select class="form-select form-select-sm border-end-0 rounded-end-0" id="type">
+                    <select class="form-select form-select-sm border-end-0 rounded-end-0" id="type" onchange="typeUpdated(this)">
                         <option value="null" hidden>Type</option>
                         <option value="apartment">Apartment</option>
                         <option value="studio">Studio</option>
@@ -120,10 +123,11 @@ R::close();
                     </label>
                 </div>
                 <div class="col px-md-1 py-1 py-xl-0 d-flex">
-                    <select class="form-select form-select-sm border-end-0 rounded-end-0" id="budget">
-                        <option value="null" hidden>Budget</option>
-                        <option value="1">5000 - 10000</option>
-                        <option value="2">10000 - 15000</option>
+                    <select class="form-select form-select-sm border-end-0 rounded-end-0" id="enlisted" onchange="enlistedUpdated(this)">
+                        <option value="null" hidden>Enlisted For</option>
+                        <option value="rent">Rent</option>
+                        <option value="lease">Lease</option>
+                        <option value="rent+lease">Both</option>
                     </select>
                     <label class="d-inline-block p-2 border rounded-end-sm" for="budget">
                         <i class="bi bi-currency-dollar fw-bold m-0"></i>
@@ -192,6 +196,12 @@ R::close();
     <?php require 'layouts/app/footer.php'; ?>
     <script type="text/javascript">
         $(function() {
+            let locationQuery = new URLSearchParams(window.location.search).get('location'),
+                typeQuery = new URLSearchParams(window.location.search).get('type'),
+                enlistedQuery = new URLSearchParams(window.location.search).get('enlisted')
+
+            window.sessionStorage.clear()
+
             //* fetch district names from api and display as location
             $.ajax({
                 async: true,
@@ -204,11 +214,67 @@ R::close();
                 },
             }).done(function(response) {
                 let html = `<option value="null" hidden>Location</option>`
-                response.data.map((elem, index) => {
-                    html += `<option value="${elem.district}">${elem.district}</option>`
+
+                response.data.map((obj, index) => {
+                    html +=
+                        `<option 
+                        value="${obj._id}" 
+                        ${locationQuery.match(new RegExp(obj.district, 'i')) ? 'selected' : ''}
+                    >
+                        ${obj.district}
+                    </option>`
+
+                    // persisting valid location query on page refresh in browser sessions
+                    locationQuery.match(new RegExp(obj.district, 'i')) ?
+                        window.sessionStorage.setItem('district', obj._id) : null
                 })
                 $("#location").html(html)
             })
+            
+            // persisting valid type query on page refresh in browser sessions
+            $('#type').children('option').each((index, option) => {
+                if (typeQuery.match(new RegExp(option.value, 'i'))) {
+                    window.sessionStorage.setItem('type', option.value)
+
+                    // set select option
+                    option.setAttribute('selected', '')
+                }
+            })
+
+            // persisting valid enlisted query on page refresh in browser sessions
+            $('#enlisted').children('option').each((index, option) => {
+                if (enlistedQuery.match(new RegExp(option.value, 'i'))) {
+                    window.sessionStorage.setItem('enlisted', option.value)
+
+                    // set select option
+                    option.setAttribute('selected', '')
+                }
+            })
         })
+
+        let districtUpdated = (e) => {
+                window.location = `${window.location.origin + window.location.pathname}?location=${e.value}`
+            },
+            typeUpdated = (e) => {
+                let location = window.sessionStorage.getItem('district')
+
+                if (location)
+                    window.location = `${window.location.origin + window.location.pathname}?location=${location}&type=${e.value}`
+                else
+                    window.location = `${window.location.origin + window.location.pathname}?type=${e.value}`
+
+            },
+            enlistedUpdated = (e) => {
+                let location = window.sessionStorage.getItem('district'),
+                    type = window.sessionStorage.getItem('type')
+
+                if (location && type)
+                    window.location =
+                    `${window.location.origin + window.location.pathname}?location=${location}&type=${type}&enlisted=${e.value}`
+                else if (location)
+                    window.location = `${window.location.origin + window.location.pathname}?type=${type}&enlisted=${e.value}`
+                else
+                    window.location = `${window.location.origin + window.location.pathname}?enlisted=${e.value}`
+            }
     </script>
 </body>
