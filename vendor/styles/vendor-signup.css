@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+
+/* NOTES */
+/* Primary Color for Vendor:  #f1f1f1*/
+/* Secondary Color for Vendor:  ##101010*/
+/* Accent Color for Vendor:  ##c4e0eb*/
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+#left {
+  background-color: #101010;
+  border-radius: 12px;
+  color: #fff;
+  height: auto;
+}
+
+.top h1 {
+  width: fit-content;
+}
+
+.top a {
+  color: #fff;
+  text-decoration: none;
+  width: fit-content;
+}
+
+.top h1:hover {
+  color: #cf33aa;
+  transition: all ease-in-out 0.1s;
+}
+
+.reviewer-image {
+  height: 60px;
+  width: 60px;
+  background-color: pink;
+  border-radius: 12px;
+  background-size: cover;
+  /* background-position: center; */
+}
+
+#item1 {
+  background-image: url("https://images.pexels.com/photos/3861954/pexels-photo-3861954.jpeg?auto=compress&cs=tinysrgb&w=600");
+}
+#item2 {
+  background-image: url("https://images.pexels.com/photos/1855582/pexels-photo-1855582.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load");
+}
+#item3 {
+  background-image: url("https://images.pexels.com/photos/3778680/pexels-photo-3778680.jpeg?auto=compress&cs=tinysrgb&w=600");
+}
+
+.carousal-item-bg {
+  background-color: #1b1b1b;
+}
+
+.border-radius-12 {
+  border-radius: 12px;
+}
+
+#right a {
+  color: #cf33aa;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+#right a:hover {
+  color: #ff2ece;
+}
+
+#signup-form input {
+  height: 45px;
+  font-weight: 600;
+}
+
+#signup-form button {
+  background: linear-gradient(to right, #b615dd, #cf33aa);
+  color: #fff;
+  border: 2px solid transparent;
+}
+
+#signup-form button:hover {
+  border: 2px solid #1b1b1b;
+}
+
+#signup-form input:focus,
+#signup-form input:active {
+  outline: none !important;
+  box-shadow: none;
+  border: 1px solid #cf33aa;
+  background-color: #cf33ab0c;
+}

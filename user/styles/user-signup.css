@@ -1,0 +1,85 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+
+/* NOTES */
+/* Primary Color for User:  #fff*/
+/* Secondary Color for User:  #101010*/
+/* Accent Color for User: Blue #0000ff*/
+/* Secondary Accent for User: DarkBlue  #0000dd*/
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+#left {
+  background-color: #0000ff;
+  border-radius: 12px;
+  color: #fff;
+  height: auto;
+}
+
+.top h1 {
+  width: fit-content;
+}
+
+.top a {
+  color: #fff;
+  text-decoration: none;
+  width: fit-content;
+}
+
+.reviewer-image {
+  height: 60px;
+  width: 60px;
+  border-radius: 12px;
+  background-size: cover;
+}
+
+#item1 {
+  background-image: url("https://images.pexels.com/photos/3861954/pexels-photo-3861954.jpeg?auto=compress&cs=tinysrgb&w=600");
+}
+#item2 {
+  background-image: url("https://images.pexels.com/photos/1855582/pexels-photo-1855582.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load");
+}
+#item3 {
+  background-image: url("https://images.pexels.com/photos/3778680/pexels-photo-3778680.jpeg?auto=compress&cs=tinysrgb&w=600");
+}
+
+.carousal-item-bg {
+  background-color: #0000dd;
+}
+
+.border-radius-12 {
+  border-radius: 12px;
+}
+
+#right a {
+  color: #0000ff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+#right a:hover {
+  color: #0000dd;
+}
+
+#signup-form input {
+  height: 45px;
+  font-weight: 600;
+}
+
+#signup-form button {
+  background-color: #0000ff;
+  color: #fff;
+}
+
+#signup-form button:hover {
+    background-color: #0000dd;
+}
+
+#signup-form input:focus,
+#signup-form input:active {
+  outline: none !important;
+  box-shadow: none;
+  border: 1px solid #0000ff;
+  background-color: #0000ff0a;
+}
