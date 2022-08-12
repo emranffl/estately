@@ -1,0 +1,180 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+/* Global CSS */
+
+body {
+  font-family: "Poppins", sans-serif;
+  color: #fff;
+}
+
+/* Custom Classes */
+
+.primary-bg{
+  background-color: #09050d;
+}
+.secondary-bg{
+  background-color: #252525;
+}
+.tertiary-bg{
+  background-color: #d0e0e9;
+}
+.quaternary-bg{
+  background-color: #deecf0;
+}
+.white-bg{
+  background-color: #fff;
+}
+.accent-bg{
+  background-color: #deff55;
+}
+.accent-color{
+  color: #deff55;
+}
+.active{
+  color: #deff55;
+}
+.inactive{
+  color: #fff;
+}
+.custom-btn{
+  background-color: #deff55;
+  color: #000;
+  border: 2px solid transparent;
+}
+.custom-btn:hover{
+  background-color: #deff55;
+  color: #000;
+  border: 2px solid transparent;
+}
+.custom-btn:focus{
+  background-color: #deff55;
+  color: #000;
+  border: 2px solid #000;
+}
+.custom-btn:active{
+ background-color: #deff55;
+ color: #000;
+}
+.showx{
+  display: block !important;
+}
+.hidex{
+  display: none !important;
+}
+.dashboard{
+  display: block;
+}
+
+
+
+
+
+/* Custom CSS */
+
+#master{
+  /* height: 100vh; */
+}
+#master-row{
+  height: 100vh;
+}
+#main{
+  padding-bottom: 100px;
+  height: 100%;
+  overflow-y: scroll;
+}
+.tiles{
+  height: 150px;
+  overflow-y: auto;
+}
+#nav{
+  bottom: 0;
+  left: 0;
+}
+.user-image{
+  height: 60px;
+  width: 60px;
+  border-radius: 100vw;
+  background-image: url("https://static.onecms.io/wp-content/uploads/sites/13/2015/09/10/jlaw.jpg");
+  background-size: cover;
+  background-position: center;
+}
+.enlist, #customer-summary{
+  background-image: url("https://images.pexels.com/photos/2387793/pexels-photo-2387793.jpeg?auto=compress&cs=tinysrgb&w=800");
+  background-size: cover;
+}
+#customer-table-wrapper{
+  height: 500px;
+  width: 100%;
+  overflow: auto;
+}
+#settings-form-wrapper{
+  height: 550px;
+  overflow: auto;
+}
+.nav-links h1{
+  cursor: pointer;
+}
+#logout{
+  cursor: pointer;
+}
+#logout:hover{
+  color: rgb(152, 0, 0) !important;
+}
+#settings-logout{
+  background-color: rgb(152, 0, 0) !important;
+}
+
+
+
+/* Media Queries */
+
+/* sm */
+@media only screen and (min-width: 576px) {
+
+}
+
+/* md */
+@media only screen and (min-width: 768px) {
+  #main{
+    padding-bottom: 0px;
+  }
+  #nav{
+    position: relative !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    padding: 24px !important;
+  }
+  .nav-links{
+    flex-direction: column;
+    gap: 30px;
+  }
+  #greet{
+    background-color: #d0e0e9; 
+    color: #000;
+    height: 100%;
+  }
+  .enlist{
+    height: 100%;
+  }
+}
+
+/* lg */
+@media only screen and (min-width: 992px) {
+  
+}
+
+
+
+
+
+
+
+
+/* Col borders for layout */
+.col{
+  /* border: 1px solid red; */
+}
