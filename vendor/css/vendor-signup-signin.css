@@ -2,15 +2,15 @@
 
 /* NOTES */
 /* Primary Color for Vendor:  #f1f1f1*/
-/* Secondary Color for Vendor:  ##101010*/
-/* Accent Color for Vendor:  ##c4e0eb*/
+/* Secondary Color for Vendor:  #101010*/
+/* Accent Color for Vendor:  #cf33aa*/
 
 body {
   font-family: "Roboto", sans-serif;
 }
 
 #left {
-  background-color: #101010;
+  background-color: #09050d;
   border-radius: 12px;
   color: #fff;
   height: auto;
@@ -27,7 +27,7 @@ body {
 }
 
 .top h1:hover {
-  color: #cf33aa;
+  color: #deff55;
   transition: all ease-in-out 0.1s;
 }
 
@@ -51,7 +51,7 @@ body {
 }
 
 .carousal-item-bg {
-  background-color: #1b1b1b;
+  background-color: #252525;
 }
 
 .border-radius-12 {
@@ -59,34 +59,40 @@ body {
 }
 
 #right a {
-  color: #cf33aa;
+  color: #000;
   text-decoration: none;
   font-weight: 600;
 }
-
-#right a:hover {
-  color: #ff2ece;
+#right a:hover{
+  color: blue;
 }
-
 #signup-form input {
   height: 45px;
   font-weight: 600;
 }
-
-#signup-form button {
-  background: linear-gradient(to right, #b615dd, #cf33aa);
-  color: #fff;
-  border: 2px solid transparent;
-}
-
-#signup-form button:hover {
-  border: 2px solid #1b1b1b;
-}
-
 #signup-form input:focus,
 #signup-form input:active {
   outline: none !important;
   box-shadow: none;
-  border: 1px solid #cf33aa;
-  background-color: #cf33ab0c;
+  border: 1px solid #000;
+  background-color: #ddff552d;
+}
+.custom-btn{
+  background-color: #deff55;
+  color: #000;
+  border: 2px solid transparent;
+}
+.custom-btn:hover{
+  background-color: #deff55;
+  color: #000;
+  border: 2px solid transparent;
+}
+.custom-btn:focus{
+  background-color: #deff55;
+  color: #000;
+  border: 2px solid #000;
+}
+.custom-btn:active{
+ background-color: #deff55;
+ color: #000;
 }
