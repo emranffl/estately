@@ -1,6 +1,29 @@
 <?php
 if (session_status() == PHP_SESSION_NONE)
 	session_start();
+
+//* create a new session if cookies exist
+if (session_status() != PHP_SESSION_DISABLED && isset($_COOKIE['name']) && isset($_COOKIE['email'])) {
+	$_SESSION['name'] = $_COOKIE['name'];
+	$_SESSION['email'] = $_COOKIE['email'];
+}
+
+//* unset session and remove cookies on logout
+if (
+	session_status() == PHP_SESSION_ACTIVE
+	&& isset($_SESSION['name']) && isset($_COOKIE['name'])
+	&& $_GET['session'] == 'end'
+) {
+	// remove server sessions
+	session_unset();
+	// remove browser cookies
+	setcookie('name', '', time() - 60, '/');
+	setcookie('email', '', time() - 60, '/');
+
+	// redirect to login page
+	header('Location: /project_estately/user/index.php');
+	exit();
+}
 ?>
 
 <html lang="en" dir="ltr">
@@ -53,32 +76,6 @@ if (session_status() == PHP_SESSION_NONE)
 			</div>
 			<div class="">
 				<?php
-
-				//* create a new session if cookies exist
-				if (session_status() != PHP_SESSION_DISABLED && isset($_COOKIE['name']) && isset($_COOKIE['email'])) {
-					$_SESSION['name'] = $_COOKIE['name'];
-					$_SESSION['email'] = $_COOKIE['email'];
-				}
-
-				//* unset session and remove cookies on logout
-				if (
-					session_status() == PHP_SESSION_ACTIVE
-					&& isset($_SESSION['name']) && isset($_COOKIE['name'])
-					&& $_SERVER['QUERY_STRING'] == 'session=end'
-				) {
-					// remove server sessions
-					session_unset();
-
-					// remove browser cookies
-					setcookie('name', '', time() - 60, '/');
-					setcookie('email', '', time() - 60, '/');
-
-					// redirect to login page
-					header('Location: /project_estately/user/index.php');
-				}
-
-
-
 				if (session_status() != PHP_SESSION_DISABLED  && !isset($_SESSION['name']) && !isset($_COOKIE['name'])) {
 					echo <<<D1
 					<div>

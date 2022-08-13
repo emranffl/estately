@@ -163,9 +163,10 @@ R::close();
             </div>
             <div class="d-flex gap-2 mt-3 justify-content-center align-items-center" id="filters">
                 <?php
-                echo $location || $type || $enlisted ? <<<CONTENT
-                    <h6 class="mb-0 me-1">Active filters:</h6>
-CONTENT : null;
+                if ($location || $type || $enlisted)
+                    echo <<<CONTENT
+                        <h6 class="mb-0 me-1">Active filters:</h6>
+CONTENT;
                 ?>
                 <div class="d-flex align-items-center gap-1">
                     <?php
@@ -191,61 +192,60 @@ CONTENT : null;
                 echo getPropertyCards($retrievedData);
 
                 //* load more properties button
-                echo sizeof($retrievedData) == $limit ? <<<BTN
-                <div class="col p-2 d-flex justify-content-center align-items-center">
-                    <div 
-                        class="d-flex justify-content-center align-items-center bf-blur hvr-grow w-75 border rounded shadow" 
-                        style="min-height: 12rem;" 
-                        onclick="(async () => {
-                            $('#loadingAnimation').removeClass('d-none').addClass('d-flex');
+                if (sizeof($retrievedData) == $limit)
+                    echo <<<BTN
+                            <div class="col p-2 d-flex justify-content-center align-items-center">
+                                <div 
+                                    class="d-flex justify-content-center align-items-center bf-blur hvr-grow w-75 border rounded shadow" 
+                                    style="min-height: 12rem;" 
+                                    onclick="(async () => {
+                                        $('#loadingAnimation').removeClass('d-none').addClass('d-flex');
 
-                            await fetch('api/app/fetch/loadmoreproperties.php', { 
-                                method: 'GET' , 
-                                headers: { 
-                                    'content-type': 'application/json', 
-                                    'offset': $('#propertyGrid').children().length - 1,
-                                    'query': new URLSearchParams(window.location.search).get('q'),
-                                    'district': new URLSearchParams(window.location.search).get('location'),
-                                    'type': new URLSearchParams(window.location.search).get('type'),
-                                    'enlisted': new URLSearchParams(window.location.search).get('enlisted')
-                                } 
-                            }) 
-                            .then(response => response.json())
-                            .then(res => {
-                                if(res?.error) 
-                                    return console.error(res.error)
+                                        await fetch('api/app/fetch/loadmoreproperties.php', { 
+                                            method: 'GET' , 
+                                            headers: { 
+                                                'content-type': 'application/json', 
+                                                'offset': $('#propertyGrid').children().length - 1,
+                                                'query': new URLSearchParams(window.location.search).get('q'),
+                                                'district': new URLSearchParams(window.location.search).get('location'),
+                                                'type': new URLSearchParams(window.location.search).get('type'),
+                                                'enlisted': new URLSearchParams(window.location.search).get('enlisted')
+                                            } 
+                                        }) 
+                                        .then(response => response.json())
+                                        .then(res => {
+                                            if(res?.error) 
+                                                return console.error(res.error)
 
-                                // insert html
-                                $('#propertyGrid').children().last('div.col').before(res.data)
+                                            // insert html
+                                            $('#propertyGrid').children().last('div.col').before(res.data)
 
-                                res.eoq ? $(this).siblings('span').removeClass('d-none').siblings('div').remove() : null
+                                            res.eoq ? $(this).siblings('span').removeClass('d-none').siblings('div').remove() : null
 
-                                // reinitialize tooltips for new view
-                                window.parent.initializeTooltips()
-                            })
-                            .catch(error => console.error(error))
+                                            // reinitialize tooltips for new view
+                                            window.parent.initializeTooltips()
+                                        })
+                                        .catch(error => console.error(error))
 
-                            $('#loadingAnimation').addClass('d-none').removeClass('d-flex')
-                        })()"
-                    >
-                        <i class="bi bi-plus fs-1"></i>
-                    </div>
-                    <span class="d-none bf-blur h-75 w-75 border rounded shadow">
-                        <lottie-player src="https://assets7.lottiefiles.com/packages/lf20_gokdsgco.json" mode="bounce" background="transparent" speed="1.5" style="width: 100%; height: 75%;" loop autoplay></lottie-player>
-                        <h5 class="fw-light text-center">End of query!</h5>
-                    </span>
-                </div>
-BTN : null;
-            } else {
-                echo <<<NO_RESULTS
-                <div class="col mx-auto d-flex justify-content-center align-items-center">
-                    <span class="bf-blur border rounded shadow">
-                        <lottie-player src="https://assets7.lottiefiles.com/packages/lf20_aKRZfw.json" mode="bounce" background="transparent" speed="1.5" style="width: 100%; height: 75%;" loop autoplay></lottie-player>
-                        <h5 class="fw-light text-center">Search didn't match any result!</h5>
-                    </span>
-                </div>
+                                        $('#loadingAnimation').addClass('d-none').removeClass('d-flex')
+                                    })()"
+                                >
+                                    <i class="bi bi-plus fs-1"></i>
+                                </div>
+                                <span class="d-none bf-blur h-75 w-75 border rounded shadow">
+                                    <lottie-player src="https://assets7.lottiefiles.com/packages/lf20_gokdsgco.json" mode="bounce" background="transparent" speed="1.5" style="width: 100%; height: 75%;" loop autoplay></lottie-player>
+                                    <h5 class="fw-light text-center">End of query!</h5>
+                                </span>
+                            </div>
+BTN;
+            } else echo <<<NO_RESULTS
+                            <div class="col mx-auto d-flex justify-content-center align-items-center">
+                                <span class="bf-blur border rounded shadow">
+                                    <lottie-player src="https://assets7.lottiefiles.com/packages/lf20_aKRZfw.json" mode="bounce" background="transparent" speed="1.5" style="width: 100%; height: 75%;" loop autoplay></lottie-player>
+                                    <h5 class="fw-light text-center">Search didn't match any result!</h5>
+                                </span>
+                            </div>
 NO_RESULTS;
-            }
             ?>
     </section>
 

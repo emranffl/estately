@@ -193,7 +193,7 @@ BTNL;
                         </div>
                     </div>
                     <?php
-                    // $placeModeMapSrc = "https://www.google.com/maps/embed/v1/place?key=" . getenv('GM_API_KEY');
+                    $placeModeMapSrc = "https://www.google.com/maps/embed/v1/place?key=" . getenv('GM_API_KEY');
 
                     $placeModeMapSrc .= !$retrievedData['latitude'] || !$retrievedData['longitude']
                         ? // when either (or both) of them is null, search by name
