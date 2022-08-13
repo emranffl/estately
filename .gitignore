@@ -3,5 +3,6 @@ test.*
 resource
 command
 .vscode
+.env
 
 # ignore except

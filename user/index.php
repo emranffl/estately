@@ -9,7 +9,6 @@ if (session_status() == PHP_SESSION_NONE)
 if (isClientLoggedIn())
     header('Location: /project_estately/index.php');
 
-
 $email = $password = '';
 $errors = array('email' => '', 'password' => '');
 
@@ -69,9 +68,7 @@ if (isset($_POST['login']) && $_POST['login'] == 'true') {
                 setcookie('email', $user['email'], time() + (86400 * 30), '/');
 
                 //* redirect after login
-                preg_match('/^redirect=/', $_SERVER['QUERY_STRING']) ?
-                    header('Location:' . str_replace('redirect=', '', $_SERVER['QUERY_STRING']), true, 307)
-                    : header('Location: /project_estately/user/dashboard.php', true, 307);
+                header('Location: /project_estately/user/dashboard.php', true, 307);
 
                 // stop further php execution
                 exit();
@@ -98,7 +95,7 @@ if (isset($_POST['login']) && $_POST['login'] == 'true') {
         <div class="row row-cols-1 row-cols-lg-2 ">
             <div class="col">
                 <h4 class="text-center">Login</h4>
-                <form class="mt-5" action="user/index.php" method="POST" enctype="application/x-www-form-urlencoded">
+                <form class="mt-5" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" enctype="application/x-www-form-urlencoded">
                     <div class="mb-2">
                         <label for="loginEmail" class="form-label">Email</label>
                         <input type="email" name="email" value="<?php echo htmlspecialchars($email) ?>" class="form-control <?php echo $errors['email'] ? 'is-invalid' : '' ?>" id="loginEmail" placeholder="example@domain.com">

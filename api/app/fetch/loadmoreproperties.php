@@ -2,21 +2,19 @@
 require __DIR__ . '/../../../resources/DB/ORM/instance.php';
 
 if (isset(getallheaders()['offset'])) {
+    $query = getallheaders()['query'] != 'null' ? getallheaders()['query'] : null;
+    $location = getallheaders()['district'] != 'null' ? getallheaders()['district'] : null;
     $type = getallheaders()['type'] != 'null' ? getallheaders()['type'] : null;
+    $enlisted = getallheaders()['enlisted'] != 'null' ? getallheaders()['enlisted'] : null;
     $limit = 4;
     $sql = "
         SELECT
         p.id AS 'id',
         name,
         type,
-       -- vendor_email,
-       -- description,
         enlisted_for,
-       -- street_address,
         district,
         division,
-       -- latitude,
-       -- longitude,
         ac_type,
         elevator,
         gym,
@@ -28,20 +26,34 @@ if (isset(getallheaders()['offset'])) {
         refrigerator,
         tv,
         wheelchair,
-        wifi
+        wifi,
+        ROUND(
+            6371 * ACOS(
+                COS(RADIANS(23.7984949)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) 
+                - RADIANS(90.3839492)) 
+                + SIN(RADIANS(23.7984949)) * SIN(RADIANS(latitude)
+            ) 
+        ),
+        2
+    ) AS distance
     FROM
         property p
     JOIN address a ON
         p.id = a.id
     JOIN amenity am ON
         p.id = am.id
+    LEFT JOIN application ap ON
+        p.id = ap.id AND ap.status != 'Pending'
     WHERE
         p.availability_status = 'vacant' 
     AND 
         p.post = 'public'";
 
+    $query ? ($sql .= " AND name LIKE '%$query%'") : null;
+    $location ? ($sql .= " AND district = '$location'") : null;
     $type ? ($sql .= " AND type = '$type'") : null;
-    $sql .= " LIMIT $limit OFFSET " . getallheaders()['offset'];
+    $enlisted ? ($sql .= " AND type = '$enlisted'") : null;
+    $sql .= " ORDER BY distance ASC LIMIT $limit OFFSET " . getallheaders()['offset'];
 
     try {
         // fetch here

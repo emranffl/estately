@@ -15,16 +15,16 @@ function getPropertyCards($propertiesArray)
         <div class="col p-1">
             <div class="card h-100 shadow">
                 <div class="position-relative">
-                    <a href="properties.php?id={$property['id']}">
+                    <a href="properties/view.php?id={$property['id']}">
                         <img src="resources/images/default-property.png" class="card-img-top" alt="...">
                     </a>
-                    <span class="badge bg-warning position-absolute bottom-0 end-0 me-3 text-dark fw-light">
+                    <span class="badge bg-secondary bg-opacity-25 bf-blur-lg position-absolute top-0 end-0 rounded-0 text-dark">
                         {$propertyEnlistedFor}
                     </span>
                 </div>
             
                 <div class="card-body">
-                    <a href="properties.php?id={$property['id']}" class="text-decoration-none">
+                    <a href="properties/view.php?id={$property['id']}" class="text-decoration-none">
                         <h5 class="card-title">{$property['name']}</h5>
                     </a>
                     <div class="d-block" style="font-size: 0.9rem;">
@@ -40,6 +40,12 @@ function getPropertyCards($propertiesArray)
                                 {$property['district']},&nbsp;{$property['division']}
                             </span>
                         </div>
+                        <div>
+                            <i class="bi bi-sign-turn-right-fill m-0 pe-2" title="Avg. Distance" data-bs-toggle="tooltip" data-bs-placement="right"></i>
+                            <span class="text-secondary">
+                                {$property['distance']} km app.
+                            </span>
+                        </div>
                     </div>
                 </div>
 
@@ -51,7 +57,7 @@ function getPropertyCards($propertiesArray)
                 </div>
             </div> 
         </div>
-        CONTENT;
+CONTENT;
     }
 
     return $propertyCards;

@@ -48,8 +48,8 @@ CREATE TABLE `address` (
     `street_address` TEXT NOT NULL,
     `district` VARCHAR(50) NOT NULL,
     `division` VARCHAR(50) NOT NULL,
-    `latitude` DECIMAL(10, 5),
-    `longitude` DECIMAL(10, 5),
+    `latitude` DECIMAL(10, 5) NOT NULL,
+    `longitude` DECIMAL(10, 5) NOT NULL,
     PRIMARY KEY (`id`)
 );
 
@@ -242,3 +242,10 @@ ALTER TABLE
     `featured`
 ADD
     CONSTRAINT `featured_fk0` FOREIGN KEY (`id`) REFERENCES `property`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- user
+CREATE USER 'admin' @'%' IDENTIFIED WITH caching_sha2_password BY 'admin_2022';
+
+GRANT ALL PRIVILEGES ON *.* TO 'admin' @'%' WITH GRANT OPTION;
+
+ALTER USER 'admin' @'%' REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;

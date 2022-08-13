@@ -1,6 +1,11 @@
 <?php
 // require ORM
 require_once __DIR__ . '/rb-mysql.php';
+require_once __DIR__ . '/../../../functionalities/parsedotenv.php';
+
 // create DB connection
-R::setup('mysql:host=localhost:3306;dbname=project_estately', 'admin', 'admin_#1234');
-?>
+R::setup(
+    getenv('DATABASE_DNS') . ':host=' . getenv('HOST') . ';dbname=' . getenv('DB_NAME'),
+    getenv('DB_USER'),
+    getenv('DB_PASSWORD')
+);

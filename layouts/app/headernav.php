@@ -30,16 +30,16 @@ if (session_status() == PHP_SESSION_NONE)
 					</li>
 					<li class="nav-item dropdown">
 						<div class="btn-group dropend">
-							<a class="nav-link" href="properties.php">Properties</a>
+							<a class="nav-link" href="properties">Properties</a>
 							<span class="nav-link dropdown-toggle ps-0 py-0 my-auto" role="button" data-bs-toggle="dropdown">
 								<span class="visually-hidden">Toggle Dropdown</span>
 							</span>
 							<ul class="dropdown-menu dropdown-menu-light">
-								<li><a class="dropdown-item" href="properties.php?type=apartment" target="_blank">Apartment</a></li>
+								<li><a class="dropdown-item" href="properties?type=apartment">Apartment</a></li>
 								<li>
 									<hr class="dropdown-divider">
 								</li>
-								<li><a class="dropdown-item" href="properties.php?type=studio" target="_blank">Studio</a></li>
+								<li><a class="dropdown-item" href="properties?type=studio">Studio</a></li>
 							</ul>
 						</div>
 					</li>
@@ -84,13 +84,13 @@ if (session_status() == PHP_SESSION_NONE)
 					<div>
 						<a href="user/index.php" class="btn px-0" onclick="(() => {
 							//* append redirect link if not in login page
-							if(this.href != window.location.origin + window.location.pathname) 
-								this.href += '?redirect='+ window.location
+							// if(this.href != window.location.origin + window.location.pathname) 
+								// this.href += '?redirect='+ window.location
 							})()">Login</a>
 						<small class="pe-1 fw-bold">|</small>
 						<a href="user/signup.php" class="btn btn-sm btn-outline-dark">Sign Up</a>
 					</div>
-					D1;
+D1;
 				} else {
 					$profileName = htmlspecialchars($_COOKIE['name']);
 					$profileEmail = htmlspecialchars($_COOKIE['email']);
@@ -107,7 +107,7 @@ if (session_status() == PHP_SESSION_NONE)
 							<li><a class="dropdown-item" href="layouts/app/headernav.php?session=end">Logout</a></li>
 						</ul>
 					</div>
-				D2;
+D2;
 				}
 				?>
 			</div>
