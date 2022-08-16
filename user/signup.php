@@ -164,14 +164,6 @@ if (isset($_POST['signup']) && $_POST['signup'] == 'true') {
         button[type=submit]:hover {
             background-color: #0000dd;
         }
-
-        input:focus,
-        input:active {
-            outline: none !important;
-            box-shadow: none !important;
-            border: 1px solid #0000ff;
-            background-color: #0000ff0a;
-        }
     </style>
 </head>
 <?php require('../layouts/masterheader.php') ?>

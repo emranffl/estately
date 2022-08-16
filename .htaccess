@@ -14,3 +14,8 @@ RedirectMatch 404 /\..*$
     ## Apache 2.4
     # Require all denied
 </FilesMatch>
+
+# image file cache control
+<FilesMatch "\.(ico|jpg|jpeg|png|gif|svg)$">
+Header set Cache-Control "max-age=864000, public, must-revalidate"
+</FilesMatch>

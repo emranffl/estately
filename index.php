@@ -57,22 +57,27 @@ R::close();
 <body>
 
 	<section class="container-fluid d-flex align-items-start align-items-xl-center hero-section">
-		<div class="ps-3 ps-lg-5 py-5 bf-blur-lg">
-			<h1>Searching for your dream
-				<span class="text-primary ml4" id="hero-text-property-type">
-					<span class="opacity-0">apartment?</span>
-					<span class="letters letters-1">apartment?</span>
-					<span class="letters letters-2">studio?</span>
-					<!-- <span class="letters letters-3">condo?</span> -->
-				</span>
-			</h1>
-			<h3>Secure through our digital contract</h3>
-			<p class="text-secondary pt-2">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Et voluptas quos voluptatum dolorum autem modi atque consectetur corrupti, amet corporis.</p>
-			<div class="d-flex gap-2">
-				<h5>Own a property?</h5>
-				<a href="vendor/signup.php" target="blank" class="btn btn-sm btn-outline-primary hvr-float">
-					Sign Up as Vendor
-				</a>
+		<div class="ps-3 ps-lg-5 py-5 bf-blur-lg bg-light bg-opacity-75">
+			<div class="p-3">
+				<h1>Searching for your dream
+					<span class="text-primary ml4 d-none d-md-block" id="hero-text-property-type">
+						<span class="opacity-0">apartment?</span>
+						<span class="letters letters-1">apartment?</span>
+						<span class="letters letters-2">studio?</span>
+						<!-- <span class="letters letters-3">condo?</span> -->
+					</span>
+				</h1>
+				<h3>Secure through our digital contract</h3>
+				<p class="text-secondary pt-2 lead">
+					Estately is a real estate platform that allows you to search for your dream home
+					and secure your future with our digital contract.
+				</p>
+				<div class="d-flex gap-2">
+					<h4>Own a property?</h4>
+					<a href="vendor/signup.php" target="blank" class="btn btn-sm btn-outline-primary hvr-float">
+						Sign Up as Vendor
+					</a>
+				</div>
 			</div>
 		</div>
 	</section>

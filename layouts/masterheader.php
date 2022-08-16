@@ -7,6 +7,11 @@
 				?>/project_estately/">
 	<!-- <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"> -->
 
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Estately is a real estate platform that allows you to search for your dream home and secure your future with our digital contract.">
+
 	<!-- //* icons -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 	<script defer src="https://kit.fontawesome.com/58511d02f2.js" crossorigin="anonymous"></script>

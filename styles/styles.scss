@@ -78,23 +78,24 @@ $utilities: (
         ),
       ),
       // 'min-viewport-height': (
-      //   property: min-height,
-      //   class: min-vh,
-      //   values: (
-      //     50: 50vh,
-      //     65: 65vh,
-      //     100: 100vh,
-      //   ),
-      // ),
-      'flex': (
-        responsive: true,
-        property: flex,
-        values: (
-          fill: 1 1 auto,
-          auto: auto,
-          none: none,
+        //   property: min-height,
+        //   class: min-vh,
+        //   values: (
+        //     50: 50vh,
+        //     65: 65vh,
+        //     100: 100vh,
+        //   ),
+        // ),
+        'flex':
+        (
+          responsive: true,
+          property: flex,
+          values: (
+            fill: 1 1 auto,
+            auto: auto,
+            none: none,
+          ),
         ),
-      ),
       'shadow': (
         property: box-shadow,
         class: shadow,
@@ -140,10 +141,7 @@ $utilities: (
 
 // custom css starts
 
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@200;300;400&display=swap');
-
-// $scrollbarTrackColor: #777;
-$scrollbarTrackAndBodyColor: linear-gradient(
+$scrollbarTrackColor: linear-gradient(
   to bottom,
   #f0edef,
   #eee8ee,
@@ -162,7 +160,7 @@ $scrollbarThumbColor: rgb(72, 130, 218);
 
 html {
   scroll-behavior: smooth;
-  scrollbar-color: $scrollbarTrackAndBodyColor $scrollbarThumbColor;
+  scrollbar-color: $scrollbarTrackColor $scrollbarThumbColor;
   scrollbar-width: 0.7vw;
   *::-webkit-scrollbar {
     width: 7px;
@@ -176,20 +174,18 @@ html {
     }
   }
   *::-webkit-scrollbar-track {
-    background-image: $scrollbarTrackAndBodyColor;
+    background-image: $scrollbarTrackColor;
   }
 }
 
 body {
   margin: 0;
   padding: 0;
-  // overflow-y: overlay;
   font-family: 'Roboto Condensed', 'PT Sans', 'Open Sans', -apple-system,
     BlinkMacSystemFont, 'Segoe UI', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
     'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  // background-image: $scrollbarTrackAndBodyColor;
 }
 
 input[type='checkbox'],
@@ -198,34 +194,34 @@ input[type='radio'] {
   width: 1.2rem;
 }
 
-// .btn-check:focus + .btn-outline-light,
-// .btn-check:focus + .btn,
-// .btn-check:checked + .btn-outline-dark:focus,
-// .btn-check:active + .btn-outline-dark:focus,
-// .btn-outline-dark:active:focus,
-// .btn-outline-dark.active:focus,
-// .btn-outline-danger:focus,
-// .btn-outline-dark:focus,
-// .btn-outline-light:focus,
-// .btn-outline-primary:focus,
-// .btn-danger:focus,
-// .btn-dark:focus,
-// .btn-light:focus,
-// .btn-primary:focus,
-// .btn-outline-dark.dropdown-toggle.show:focus {
-// 	outline: none !important;
-// 	box-shadow: none !important;
-// }
+.btn-check:focus + .btn-outline-light,
+.btn-check:focus + .btn,
+.btn-check:checked + .btn-outline-dark:focus,
+.btn-check:active + .btn-outline-dark:focus,
+.btn-outline-dark:active:focus,
+.btn-outline-dark.active:focus,
+.btn-outline-danger:focus,
+.btn-outline-dark:focus,
+.btn-outline-light:focus,
+.btn-outline-primary:focus,
+.btn-danger:focus,
+.btn-dark:focus,
+.btn-light:focus,
+.btn-primary:focus,
+.btn-outline-dark.dropdown-toggle.show:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
 
-// input:focus,
-// select:focus,
-// textarea:focus {
-// 	-moz-box-shadow: none !important;
-// 	-webkit-box-shadow: none !important;
-// 	box-shadow: none !important;
-// 	border: 1px solid #0f02c0;
-// 	outline-width: 0;
-// }
+input:focus,
+select:focus,
+textarea:focus {
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border: 1px solid #1100ff;
+}
 
 .hvr-grow {
   display: inline-block;
@@ -266,4 +262,3 @@ input[type='radio'] {
 }
 
 /* ------------------------- global ----------------------------- */
-

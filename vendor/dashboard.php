@@ -20,13 +20,13 @@ R::close();
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | Estately</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://kit.fontawesome.com/51c0086ffa.js" crossorigin="anonymous"></script>
+    <title>Vendor Dashboard | Estately</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/vendor-dashboard.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script defer src="https://kit.fontawesome.com/51c0086ffa.js" crossorigin="anonymous"></script>
+    <script defer src="./js/vendor-dashboard.js"></script>
 </head>
 
 <body>
@@ -39,7 +39,7 @@ R::close();
             <div class="col col-3 d-md-none d-flex justify-content-center align-items-center primary-bg">
                 <div class="user-image"></div>
             </div>
-            <div class="col col-12 col-md-4 col-lg-3 order-md-2 p-4 primary-bg" id="greet">
+            <div class="col col-12 col-md-3 col-lg-2 order-md-2 p-4 primary-bg" id="greet">
                 <h1 class="fs-3 mb-0 d-md-none">Good Morning, Jennifer!</h1>
                 <div class="d-none d-md-flex flex-column justify-content-between h-100" id="greet-md">
                     <div class="wrapper">
@@ -67,7 +67,7 @@ R::close();
                     </div>
                 </div>
             </div>
-            <div class="col col-12 col-md-7 col-lg-8 order-md-3 primary-bg" id="main">
+            <div class="col col-12 col-md-8 col-lg-9 order-md-3 primary-bg" id="main">
                 <!-- dashboard -->
                 <div class="dashboard p-4" id="dashboard">
                     <h1 class="fs-3 mb-4">Dashboard</h1>
@@ -170,6 +170,51 @@ R::close();
                 </div>
                 <!-- customers -->
                 <div class="customers p-4 d-none" id="customer">
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#publishedPropertiesTab" type="button" role="tab">Published Properties</button>
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#draftPropertiesTab" type="button" role="tab">Draft Properties</button>
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tenantsTab" type="button" role="tab">Tenants</button>
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="publishedPropertiesTab" role="tabpanel">
+                            <div class="row g-0">
+                                <div class="col-12 mb-3 p-4 rounded-bottom-3 secondary-bg" id="customer-summary">
+                                    <h4 class="mb-0">You currently have <?php echo ''; ?> <wbr>published properties</h4>
+                                </div>
+                                <div class="col-12" id="customer-table-wrapper">
+                                    <table class="table table-dark table-bordered table-responsive text-light" id="customer-table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Sl.</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">ID</th>
+                                                <th scope="col">Contact</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">1</th>
+                                                <td>Mark</td>
+                                                <td>Otto</td>
+                                                <td>017171</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">2</th>
+                                                <td>Jacob</td>
+                                                <td>Thornton</td>
+                                                <td>0171717</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="draftPropertiesTab" role="tabpanel">...</div>
+                        <div class="tab-pane fade" id="tenantsTab" role="tabpanel">...</div>
+                    </div>
+
                     <h1 class="fs-3 mb-4">Customers</h1>
                     <div class="row g-0">
                         <div class="col col-12 col-lg-12 mb-3 p-4 rounded-3 secondary-bg" id="customer-summary">
@@ -251,7 +296,7 @@ R::close();
         </div>
     </section>
 
-    <!-- Enslist new Property Modal -->
+    <!-- //* enlist new property modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -270,8 +315,6 @@ R::close();
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="./js/vendor-dashboard.js"></script>
 </body>
 
 </html>

@@ -2,6 +2,30 @@
 require __DIR__ . '/../resources/DB/ORM/instance.php';
 foreach (glob(__DIR__ . '/../functionalities/*.php') as $functionalities) require $functionalities;
 
+//* retrieving location coordinates from the api
+$curl = curl_init();
+$findIPLocation = getenv('IP_LOCATION_API_KEY');
+curl_setopt_array($curl, [
+    CURLOPT_URL => "https://find-any-ip-address-or-domain-location-world-wide.p.rapidapi.com/iplocation?apikey=$findIPLocation",
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_FOLLOWLOCATION => true,
+    CURLOPT_ENCODING => "",
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 30,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => "GET",
+    CURLOPT_HTTPHEADER => [
+        "X-RapidAPI-Host: find-any-ip-address-or-domain-location-world-wide.p.rapidapi.com",
+        "X-RapidAPI-Key: 4e5af1f078msh5096b16206fe69ep162351jsn1bbd3c374daf"
+    ],
+]);
+
+$curlResponse = empty(curl_exec($curl)) ? curl_error($curl) : json_decode(curl_exec($curl), JSON_PRETTY_PRINT);
+
+$ipLat = $curlResponse['latitude'];
+$ipLon = $curlResponse['longitude'];
+
+curl_close($curl);
 
 // query string
 $q = $_GET['q'] ?? null;
@@ -34,9 +58,9 @@ $sql = "
         wifi,
         ROUND(
             6371 * ACOS(
-                COS(RADIANS(23.7984949)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) 
-                - RADIANS(90.3839492)) 
-                + SIN(RADIANS(23.7984949)) * SIN(RADIANS(latitude)
+                COS(RADIANS($ipLat)) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) 
+                - RADIANS($ipLon)) 
+                + SIN(RADIANS($ipLat)) * SIN(RADIANS(latitude)
             ) 
         ),
         2
@@ -317,7 +341,8 @@ NO_RESULTS;
         })
 
         let search = () => {
-                window.location = `${window.location.origin + window.location.pathname}?q=${$('#search').val()}`
+                if ($('#search').val())
+                    window.location = `${window.location.origin + window.location.pathname}?q=${$('#search').val()}`
             },
             districtUpdated = (e) => {
                 let query = new URLSearchParams(window.location.search).get('q')

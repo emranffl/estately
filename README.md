@@ -1,5 +1,7 @@
 # Estately
+
 ## Tutorials
+
 BS5:
 https://youtube.com/playlist?list=PL4cUxeGkcC9joIM91nLzd_qaH_AimmdAR
 
@@ -10,9 +12,13 @@ PHP:
 https://youtube.com/playlist?list=PL4cUxeGkcC9gksOX3Kd9KPo-O68ncT05o
 
 ## Resources Consumed
+
+- [Moving letters animation](https://tobiasahlin.com/moving-letters/#4)
+- [Retrieving coordinates from IP address](https://rapidapi.com/ipfind/api/find-any-ip-address-or-domain-location-world-wide/)
 - [Distance from coordinates in MySQL](https://stackoverflow.com/a/48263512/13633372)
 
 ## VS Code Extensions for Smooth Workflow:
+
 - PHP IntelliSense
 - Better Comments
 - Auto Rename Tag
@@ -22,7 +28,9 @@ https://youtube.com/playlist?list=PL4cUxeGkcC9gksOX3Kd9KPo-O68ncT05o
 - SQL Formatter
 
 ## Setting Up the Workspace:
+
 - clone the repo to `C://xampp/htdocs` folder
+- place the `.env` file provided by the developer in the root directory
 - head on to your local server (phpmyadmin)
 - create a DB namely '**project_estately**'
 - select newly created DB
