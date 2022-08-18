@@ -5,7 +5,7 @@
 
 body {
   font-family: "Poppins", sans-serif;
-  color: #fff;
+  color: #000;
 }
 ::-webkit-scrollbar {
   width: 10px;
@@ -23,50 +23,53 @@ body {
 /* Custom Classes */
 
 .primary-bg{
-  background-color: #09050d;
+  background-color: #ffffff;
 }
 .secondary-bg{
-  background-color: #252525;
+  background-color: #DFE5EB;
 }
 .tertiary-bg{
-  background-color: #d0e0e9;
+  background-color: #DFE5EB;
 }
 .quaternary-bg{
-  background-color: #deecf0;
+  background-color: #f3f3f3;
 }
 .white-bg{
   background-color: #fff;
 }
 .accent-bg{
-  background-color: #deff55;
+  background-color: #000;
 }
 .accent-color{
-  color: #deff55;
+  color: #000;
+}
+.warning-color{
+  color: orange;
 }
 .active{
-  color: #deff55;
+  color: #DFE5EB;
 }
 .inactive{
   color: #fff;
 }
 .custom-btn{
-  background-color: #deff55;
-  color: #000;
+  background-color: #000;
+  color: #fff;
   border: 2px solid transparent;
 }
 .custom-btn:hover{
-  background-color: #deff55;
-  color: #000;
+  background-color: #000;
+  color: #fff;
   border: 2px solid transparent;
 }
 .custom-btn:focus{
-  background-color: #deff55;
-  color: #000;
+  background-color: #000;
+  color: #fff;
   border: 2px solid #000;
 }
 .custom-btn:active{
- background-color: #deff55;
- color: #000;
+ background-color: #000;
+ color: #fff;
 }
 .showx{
   display: block !important;
@@ -111,8 +114,8 @@ body {
   background-size: cover;
   background-position: center;
 }
-.enlist, #customer-summary{
-  background-image: url("https://images.pexels.com/photos/2387793/pexels-photo-2387793.jpeg?auto=compress&cs=tinysrgb&w=800");
+.explore, #customer-summary{
+  background-image: url("https://images.pexels.com/photos/2341290/pexels-photo-2341290.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
   background-size: cover;
 }
 #customer-table-wrapper{
@@ -135,6 +138,9 @@ body {
 }
 #settings-logout{
   background-color: rgb(152, 0, 0) !important;
+}
+.cursor-denied{
+  cursor: not-allowed;
 }
 
 
@@ -165,11 +171,11 @@ body {
     gap: 30px;
   }
   #greet{
-    background-color: #d0e0e9; 
+    background-color: #DFE5EB; 
     color: #000;
     height: 100%;
   }
-  .enlist{
+  .explore{
     height: 100%;
   }
 }
