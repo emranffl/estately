@@ -36,7 +36,7 @@
 				<p>Discover the world's best real estate management service.</p>
 			</div>
 			<div class="col col-12 col-md-6" id="footer-links">
-				<div class="links d-flex gap-3">
+				<div class="links d-flex flex-wrap gap-3">
 					<a href="">Facebook</a>
 					<a href="">Instagram</a>
 					<a href="">LinkedIn</a>
