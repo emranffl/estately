@@ -10,7 +10,9 @@ try {
 	consoleError($e->getMessage());
 }
 
-consoleLog($var);
+// consoleLog($var);
+// Connection used by saleh
+$conn = new mysqli("localhost", "root", "", "project_estately");
 
 // close connection
 R::close();
@@ -50,6 +52,9 @@ R::close();
 			right: 0;
 			opacity: 0;
 		}
+		#featured-card{
+			
+		}
 	</style>
 </head>
 <?php require 'layouts/app/headernav.php'; ?>
@@ -62,9 +67,8 @@ R::close();
 				<h1>Searching for your dream
 					<span class="text-primary ml4 d-none d-md-block" id="hero-text-property-type">
 						<span class="opacity-0">apartment?</span>
-						<span class="letters letters-1">apartment?</span>
-						<span class="letters letters-2">studio?</span>
-						<!-- <span class="letters letters-3">condo?</span> -->
+						<span class="letters letters-1">Apartment?</span>
+						<span class="letters letters-2">Studio?</span>
 					</span>
 				</h1>
 				<h3>Secure through our digital contract</h3>
@@ -82,54 +86,39 @@ R::close();
 		</div>
 	</section>
 
+	<!-- Featured Section -->
 	<section class="container mt-5 px-0">
-		<h3 class="d-flex align-items-center" id="featured"><span class="vr me-2"></span>Featured</h3>
+		<h3 class="d-flex align-items-center mb-0" id="featured"><span class="vr me-2"></span>Featured</h3>
 
-		<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 mt-5">
-			<div class="col p-2">
-				<div class="card hvr-float">
-					<img src="https://images.unsplash.com/photo-1611095210561-67f0832b1ca3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" class="card-img-top" alt="...">
-					<div class="card-body">
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						<a href="#" class="btn btn-primary">Go somewhere</a>
-					</div>
-				</div>
-			</div>
+		<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 mt-5 px-4">
+			<?php
+				$sqlget = "SELECT name, description from property p JOIN featured f ON p.id = f.id WHERE f.status = 'active' ORDER BY paid_amount DESC LIMIT 4";
+				$sqldata = mysqli_query($conn, $sqlget) or die("error getting sql data");
 
-			<div class="col p-2">
-				<div class="card">
-					<img src="https://images.unsplash.com/photo-1611095210561-67f0832b1ca3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" class="card-img-top" alt="...">
-					<div class="card-body">
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						<a href="#" class="btn btn-primary">Go somewhere</a>
-					</div>
-				</div>
-			</div>
+				$imgArr = array(
+					"https://images.unsplash.com/photo-1611095210561-67f0832b1ca3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+					"https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800",
+					"https://images.pexels.com/photos/4078615/pexels-photo-4078615.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load",
+					"https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=800"
+				);
+				$counter = 0;
 
-			<div class="col p-2">
-				<div class="card">
-					<img src="https://images.unsplash.com/photo-1611095210561-67f0832b1ca3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" class="card-img-top" alt="...">
-					<div class="card-body">
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						<a href="#" class="btn btn-primary">Go somewhere</a>
-					</div>
-				</div>
-			</div>
-
-			<div class="col p-2">
-				<div class="card">
-					<img src="https://images.unsplash.com/photo-1611095210561-67f0832b1ca3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" class="card-img-top" alt="...">
-					<div class="card-body">
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						<a href="#" class="btn btn-primary">Go somewhere</a>
-					</div>
-				</div>
-			</div>
-
+				while($row = mysqli_fetch_array($sqldata, MYSQLI_ASSOC)){
+					echo <<<BLCK
+						<div class="col p-2" id="featured-card">
+							<div class="card hvr-float h-100">
+								<img class="card-img-top" src="$imgArr[$counter]" alt="...">
+								<div class="card-body h-100 d-flex flex-column justify-content-between">
+									<h5 class="card-title">$row[name]</h5>
+									<p class="card-text">$row[description]</p>
+									<a href="#" class="btn btn-primary">Book Now</a>
+								</div>
+							</div>
+						</div>
+					BLCK;
+					$counter++;
+				}
+			?>
 		</div>
 	</section>
 

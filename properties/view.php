@@ -60,9 +60,9 @@ R::close();
 
 <body>
 
-    <!-- //* rent modal -->
+    <!-- Rent Modal -->
     <div class="modal fade" id="rentModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="rentModal" aria-hidden="true">
-        <div class="modal-dialog modal-fullscreen">
+        <div class="modal-dialog !modal-fullscreen">
             <div class="modal-content">
                 <div class="modal-header py-1">
                     <h5 class="modal-title">Rent Information</h5>
@@ -70,12 +70,22 @@ R::close();
                 </div>
                 <div class="modal-body">
                     <div class="container">
-                        <div>
-                            <div class="input-group input-group-sm mb-3">
-                                <span class="input-group-text" id="inputGroup-sizing-sm">Rent</span>
-                                <input type="text" class="form-control" value="<?php echo $retrievedData['rent']; ?>" readonly>
-                            </div>
+
+                        <p class="mb-0">Rent</p>
+                        <div class="input-group input-group-sm mb-3">
+                            <input type="text" class="form-control" value="<?php echo $retrievedData['rent']; ?>" readonly>
                         </div>
+
+                        <p class="mb-0">Terms</p>
+                        <div class="input-group mb-3">
+                            <textarea class="form-control" aria-label="With textarea"></textarea>
+                        </div>
+
+                        <p class="mb-0">Reservation Percentage</p>
+                        <div class="input-group input-group-sm mb-3">
+                            <input type="text" class="form-control" value="<?php echo $retrievedData['rent']; ?>" readonly>
+                        </div>
+
                     </div>
                 </div>
                 <div class="modal-footer d-flex justify-content-between">
@@ -88,7 +98,7 @@ R::close();
                         </label>
                     </div>
                     <div class="">
-                        <button type="button" class="btn btn-sm px-4 btn-outline-primary disabled" id="rentBtn" data-bs-toggle="modal" data-bs-target="#rentConfirmationModal">Rent</button>
+                        <button type="button" class="btn btn-sm px-4 btn-success disabled" id="rentBtn" data-bs-toggle="modal" data-bs-target="#rentConfirmationModal">Rent</button>
                         <button type="button" class="btn btn-sm px-4 btn-danger" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
@@ -118,6 +128,74 @@ R::close();
         </div>
     </div>
 
+    <!-- Lease Modal -->
+    <div class="modal fade" id="leaseModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="rentModal" aria-hidden="true">
+        <div class="modal-dialog !modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header py-1">
+                    <h5 class="modal-title">Leasing Information</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+
+                        <div class="radio-container mb-3">
+                            <p class="mb-2">Select leasing duration:</p>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    12 months
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    24 months
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    36 months
+                                </label>
+                            </div>
+                        </div>
+
+                        <p class="mb-0">Leasing Amount</p>
+                        <div class="input-group input-group-sm mb-3">
+                            <input type="text" class="form-control" value="<?php echo $retrievedData['rent']; ?>" readonly>
+                        </div>
+
+                        <p class="mb-0">Terms</p>
+                        <div class="input-group mb-3">
+                            <textarea class="form-control" aria-label="With textarea"></textarea>
+                        </div>
+
+                        <p class="mb-0">Reservation Percentage</p>
+                        <div class="input-group input-group-sm mb-3">
+                            <input type="text" class="form-control" value="<?php echo $retrievedData['rent']; ?>" readonly>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-between">
+                    <div class="form-check">
+                        <input class="form-check-input mt-0" type="checkbox" id="agreeToTerms" onchange="(() => {
+                                $('#rentBtn').toggleClass('disabled')
+                            })()">
+                        <label class="form-check-label text-secondary d-flex align-items-center ms-1" for="agreeToTerms">
+                            <small>I have read and agreed to the above mentioned "terms"</small>
+                        </label>
+                    </div>
+                    <div class="">
+                        <button type="button" class="btn btn-sm px-4 btn-success disabled" id="rentBtn" data-bs-toggle="modal" data-bs-target="#rentConfirmationModal">Rent</button>
+                        <button type="button" class="btn btn-sm px-4 btn-danger" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- //* info container -->
     <section class="container mt-5">
         <div class="row row-cols-1 row-cols-lg-2">
@@ -128,7 +206,7 @@ R::close();
                 <div class="fw-light">
                     <h4><?php echo $retrievedData['name']; ?></h4>
                     <h6><span class="text-secondary">Type: </span><span class=""><?php echo $retrievedData['type']; ?></span></h6>
-                    <h6><span class="text-secondary">Enlisted: </span><span class=""><?php echo $retrievedData['enlisted_for']; ?></span></h6>
+                    <h6><span class="text-secondary">Enlisted for: </span><span class=""><?php echo $retrievedData['enlisted_for']; ?></span></h6>
                     <h6>
                         <span class="text-secondary">Location: </span><span class="">
                             <?php
