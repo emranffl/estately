@@ -83,7 +83,7 @@ R::close();
 	</section>
 
 	<section class="container mt-5 px-0">
-		<h3 class="d-flex align-items-center"><span class="vr me-2"></span> Featured</h3>
+		<h3 class="d-flex align-items-center" id="featured"><span class="vr me-2"></span>Featured</h3>
 
 		<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 mt-5">
 			<div class="col p-2">

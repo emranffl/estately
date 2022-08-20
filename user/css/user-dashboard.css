@@ -1,10 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 /* Global CSS */
 
 body {
-  font-family: 'Poppins', sans-serif;
-  color: #fff;
+  font-family: "Poppins", sans-serif;
+  color: #000;
 }
 ::-webkit-scrollbar {
   width: 10px;
@@ -21,133 +22,142 @@ body {
 
 /* Custom Classes */
 
-.primary-bg {
-  background-color: #09050d;
+.primary-bg{
+  background-color: #ffffff;
 }
-.secondary-bg {
-  background-color: #252525;
+.secondary-bg{
+  background-color: #DFE5EB;
 }
-.tertiary-bg {
-  background-color: #d0e0e9;
+.tertiary-bg{
+  background-color: #DFE5EB;
 }
-.quaternary-bg {
-  background-color: #deecf0;
+.quaternary-bg{
+  background-color: #f3f3f3;
 }
-.white-bg {
+.white-bg{
   background-color: #fff;
 }
-.accent-bg {
-  background-color: #deff55;
+.accent-bg{
+  background-color: #000;
 }
-.accent-color {
-  color: #deff55;
+.accent-color{
+  color: #000;
 }
-.active {
-  color: #deff55;
+.warning-color{
+  color: orange;
 }
-.inactive {
+.active{
+  color: #DFE5EB;
+}
+.inactive{
   color: #fff;
 }
-.custom-btn {
-  background-color: #deff55;
-  color: #000;
+.custom-btn{
+  background-color: #000;
+  color: #fff;
   border: 2px solid transparent;
 }
-.custom-btn:hover {
-  background-color: #deff55;
-  color: #000;
+.custom-btn:hover{
+  background-color: #000;
+  color: #fff;
   border: 2px solid transparent;
 }
-.custom-btn:focus {
-  background-color: #deff55;
-  color: #000;
+.custom-btn:focus{
+  background-color: #000;
+  color: #fff;
   border: 2px solid #000;
 }
-.custom-btn:active {
-  background-color: #deff55;
-  color: #000;
+.custom-btn:active{
+ background-color: #000;
+ color: #fff;
 }
-.showx {
+.showx{
   display: block !important;
 }
-.hidex {
+.hidex{
   display: none !important;
 }
-.dashboard {
+.dashboard{
   display: block;
 }
 
+
+
+
+
 /* Custom CSS */
 
-#master {
+#master{
   /* height: 100vh; */
 }
-#master-row {
+#master-row{
   height: 100vh;
 }
-#main {
+#main{
   padding-bottom: 100px;
   height: 100%;
   overflow-y: scroll;
 }
-.tiles {
+.tiles{
   height: 150px;
   overflow-y: auto;
 }
-#nav {
+#nav{
   bottom: 0;
   left: 0;
 }
-.user-image {
+.user-image{
   height: 60px;
   width: 60px;
   border-radius: 100vw;
-  background-image: url('https://static.onecms.io/wp-content/uploads/sites/13/2015/09/10/jlaw.jpg');
+  background-image: url("https://static.onecms.io/wp-content/uploads/sites/13/2015/09/10/jlaw.jpg");
   background-size: cover;
   background-position: center;
 }
-.enlist,
-#customer-summary {
-  background-image: url('https://images.pexels.com/photos/2387793/pexels-photo-2387793.jpeg?auto=compress&cs=tinysrgb&w=800');
+.explore, #customer-summary{
+  background-image: url("https://images.pexels.com/photos/2341290/pexels-photo-2341290.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
   background-size: cover;
 }
-#customer-table-wrapper {
+#customer-table-wrapper{
+  height: 500px;
   width: 100%;
   overflow: auto;
 }
-#settings-form-wrapper {
-  /* height: 550px; */
+#settings-form-wrapper{
+  height: 550px;
   overflow: auto;
 }
-.nav-links h1 {
+.nav-links h1{
   cursor: pointer;
 }
-#logout {
+#logout{
   cursor: pointer;
 }
-#logout:hover {
+#logout:hover{
   color: rgb(152, 0, 0) !important;
 }
-#settings-logout {
+#settings-logout{
   background-color: rgb(152, 0, 0) !important;
 }
-
-.nav-link[role='tab'] {
-  color: #fff;
+.cursor-denied{
+  cursor: not-allowed;
 }
+
+
 
 /* Media Queries */
 
 /* sm */
 @media only screen and (min-width: 576px) {
+
 }
 
 /* md */
 @media only screen and (min-width: 768px) {
-  #main {
+  #main{
     padding-bottom: 0px;
   }
-  #nav {
+  #nav{
     position: relative !important;
     display: flex;
     flex-direction: column;
@@ -156,25 +166,33 @@ body {
     gap: 40px;
     padding: 24px !important;
   }
-  .nav-links {
+  .nav-links{
     flex-direction: column;
     gap: 30px;
   }
-  #greet {
-    background-color: #d0e0e9;
+  #greet{
+    background-color: #DFE5EB; 
     color: #000;
     height: 100%;
   }
-  .enlist {
+  .explore{
     height: 100%;
   }
 }
 
 /* lg */
 @media only screen and (min-width: 992px) {
+  
 }
 
+
+
+
+
+
+
+
 /* Col borders for layout */
-.col {
+.col{
   /* border: 1px solid red; */
 }
