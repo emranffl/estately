@@ -36,7 +36,7 @@ R::close();
                     </a>
                 </div>
                 <div class="mid">
-                    <h1 class="fs-1 fw-bold lh-1">Start your jouney with us.</h1>
+                    <h1 class="fs-1 fw-bold lh-1">Start your journey with us.</h1>
                     <p class="mb-0">Discover the world's best real estate management service.</p>
                 </div>
                 <div class="bot d-none d-lg-block">
