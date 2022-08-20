@@ -52,9 +52,6 @@ R::close();
 			right: 0;
 			opacity: 0;
 		}
-		#featured-card{
-			
-		}
 	</style>
 </head>
 <?php require 'layouts/app/headernav.php'; ?>
@@ -92,32 +89,31 @@ R::close();
 
 		<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 mt-5 px-4">
 			<?php
-				$sqlget = "SELECT name, description from property p JOIN featured f ON p.id = f.id WHERE f.status = 'active' ORDER BY paid_amount DESC LIMIT 4";
-				$sqldata = mysqli_query($conn, $sqlget) or die("error getting sql data");
+			$featuredSQL = "SELECT p.id, name, description from property p JOIN featured f ON p.id = f.id WHERE f.status = 'active' ORDER BY paid_amount DESC LIMIT 4";
+			$retrievedFeaturedData = R::getAssocRow($featuredSQL);
 
-				$imgArr = array(
-					"https://images.unsplash.com/photo-1611095210561-67f0832b1ca3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-					"https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800",
-					"https://images.pexels.com/photos/4078615/pexels-photo-4078615.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load",
-					"https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=800"
-				);
-				$counter = 0;
+			$imgArr = array(
+				"https://images.unsplash.com/photo-1611095210561-67f0832b1ca3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+				"https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800",
+				"https://images.pexels.com/photos/4078615/pexels-photo-4078615.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load",
+				"https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=800"
+			);
 
-				while($row = mysqli_fetch_array($sqldata, MYSQLI_ASSOC)){
-					echo <<<BLCK
-						<div class="col p-2" id="featured-card">
-							<div class="card hvr-float h-100">
-								<img class="card-img-top" src="$imgArr[$counter]" alt="...">
-								<div class="card-body h-100 d-flex flex-column justify-content-between">
-									<h5 class="card-title">$row[name]</h5>
-									<p class="card-text">$row[description]</p>
-									<a href="#" class="btn btn-primary">Book Now</a>
-								</div>
+			foreach ($retrievedFeaturedData as $counter => $row) {
+				echo <<<BLOCK
+					<div class="col p-2" id="featured-card">
+						<div class="card hvr-float">
+							<img class="card-img-top" src="$imgArr[$counter]" alt="...">
+							<div class="card-body h-100 d-flex flex-column justify-content-between">
+								<h5 class="card-title">{$row['name']}</h5>
+								<p class="card-text fs-7">{$row['description']}</p>
+								<a href="/project_estately/properties/view.php?id={$row['id']}" class="btn btn-sm text-primary shadow-sm py-1">View</a>
 							</div>
 						</div>
-					BLCK;
-					$counter++;
-				}
+					</div>
+BLOCK;
+			}
+
 			?>
 		</div>
 	</section>
