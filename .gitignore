@@ -4,5 +4,6 @@ resource
 command
 .vscode
 .env
+.DS_Store
 
 # ignore except

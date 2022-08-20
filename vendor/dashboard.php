@@ -5,6 +5,19 @@ foreach (glob(__DIR__ . '/../functionalities/*.php') as $functionalities) requir
 $vendor = isset($_GET['vendor']) ? $_GET['vendor'] : null;
 // header('Location: project_estately/vendor/index.php');
 
+if (session_status() == PHP_SESSION_NONE)
+    session_start();
+
+// //* create a new session if cookies exist
+// if (session_status() != PHP_SESSION_DISABLED && isset($_COOKIE['name']) && isset($_COOKIE['email'])) {
+//     $_SESSION['name'] = $_COOKIE['name'];
+//     $_SESSION['email'] = $_COOKIE['email'];
+// }
+
+if (!isClientLoggedIn('vendor'))
+    header('Location: /project_estately/vendor/index.php');
+
+
 $rentedApartmentDataSQL = "
     SELECT
     *
@@ -164,6 +177,10 @@ R::close();
 <head>
     <title>Vendor Dashboard | Estately</title>
 
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="./../styles/styles.css">
     <link rel="stylesheet" href="./css/vendor-dashboard.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
@@ -189,10 +206,10 @@ R::close();
                 <div class="user-image"></div>
             </div>
             <div class="col col-12 col-md-3 col-lg-3 order-md-2 p-4 primary-bg" id="greet">
-                <h1 class="fs-3 mb-0 d-md-none">Good day, <?php echo $retrievedVendorData['name']; ?>!</h1>
+                <span class="fs-5 mb-0 d-md-none">Good day, <?= $vendor['name'] ?>!</span>
                 <div class="d-none d-md-flex flex-column justify-content-between h-100" id="greet-md">
                     <div class="wrapper">
-                        <h1 class="fs-3 mb-3">Good day, <?php echo $retrievedVendorData['name']; ?>!</h1>
+                        <span class="fs-5 mb-3">Good day, <?= $vendor['name'] ?>!</span>
                         <div class="tile d-flex py-3 gap-4 align-items-center">
                             <h1><i class="fa-solid fa-wallet"></i></h1>
                             <div class="wrapper">
@@ -276,7 +293,7 @@ R::close();
                             <div class="enlist p-4 rounded-3 secondary-bg">
                                 <h1 class="fs-4 mb-0">Add Property</h1>
                                 <p>Upload new properties up for rent.</p>
-                                <button type="button" class="btn btn-primary shadow-none custom-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Upload</button>
+                                <button type="button" class="btn btn-primary shadow-none custom-btn" data-bs-toggle="modal" data-bs-target="#addPropertyModal">Upload</button>
                             </div>
                         </div>
                         <div class="col col-12 col-md-12 col-lg-12 pe-3 mb-3">
@@ -1051,13 +1068,13 @@ CONTENT;
                                     </div>
                                     <button type="button" class="btn btn-primary shadow-none custom-btn" onclick="updateVendor()">Update</button>
                                 </form>
-                                <button type="submit" class="btn btn-primary shadow-none border-0 w-100 mt-4 d-md-none" id="settings-logout">Logout</button>
+                                <a class="btn btn-primary shadow-none border-0 w-100 mt-4 d-md-none" href="layouts/vendor/headernav.php?session=end" id="settings-logout">Logout</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                
+
                 <nav class="col col-12 col-md-1 col-lg-1 order-md-1 position-fixed primary-bg" id="nav">
                     <a class="text-decoration-none text-light" href="/project_estately/index.php">
                         <h1 class="d-none d-md-block fs-5 mb-0">Estately</h1>
@@ -1068,7 +1085,11 @@ CONTENT;
                         <h1 class="mb-0" id="nav-settings"><i class="fa-solid fa-gear"></i></h1>
                     </div>
                     <div class="wrapper d-none d-md-flex flex-column align-items-center gap-3">
-                        <h1 class="fs-3 mb-0 text-muted" id="logout"><i class="fa-solid fa-right-from-bracket"></i></h1>
+                        <h1 class="fs-3 mb-0 text-muted" id="logout">
+                            <a class="text-decoration-none" href="/project_estately/layouts/vendor/headernav.php?session=end">
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                            </a>
+                        </h1>
                         <div class="user-image"></div>
                     </div>
                 </nav>
@@ -1076,25 +1097,36 @@ CONTENT;
     </section>
 
     <!-- //* enlist new property modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal fade" id="addPropertyModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content bf-blur-lg bg-dark bg-opacity-75">
+                <div class="modal-header py-1">
+                    <h5 class="modal-title">Add New Property</h5>
+                    <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="bi bi-x text-light h5"></i>
+                    </button>
                 </div>
                 <div class="modal-body">
-                    ...
+
+
+
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary custom-btn">Upload</button>
+                <div class="modal-footer py-1 d-flex justify-content-between">
+                    <div>
+                        <button type="button" class="btn btn-sm btn-outline-light me-2 px-3">Save as Draft</button>
+                        <button type="button" class="btn btn-sm btn-dark px-3" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-success px-2">Publish</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
+        $(function() {
+            new bootstrap.Modal(document.getElementById('addPropertyModal')).show()
+        })
+
         let saveDraftProperty = propertyID => {
                 console.log(propertyID)
             },

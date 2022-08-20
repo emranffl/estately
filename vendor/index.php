@@ -6,8 +6,8 @@ if (session_status() == PHP_SESSION_NONE)
     session_start();
 
 // redirect on login page visit after logged in
-if (isClientLoggedIn('vendor_'))
-    header('Location: /project_estately/index.php');
+if (isClientLoggedIn('vendor'))
+    header('Location: /project_estately/vendor/dashboard.php?vendor=' . $_SESSION['vendoremail']);
 
 $email = $password = '';
 $errors = array('email' => '', 'password' => '');
@@ -60,12 +60,12 @@ if (isset($_POST['login']) && $_POST['login'] == 'true') {
                 $errors['password'] = '';
 
                 //* set server sessions 
-                $_SESSION['vendor_name'] = $vendor['vendor_name'];
-                $_SESSION['vendor_email'] = $vendor['vendor_email'];
+                $_SESSION['vendorname'] = $vendor['name'];
+                $_SESSION['vendoremail'] = $vendor['email'];
 
                 //* set browser cookies
-                setcookie('vendor_name', $vendor['name'], time() + (86400 * 30), '/');
-                setcookie('vendor_email', $vendor['email'], time() + (86400 * 30), '/');
+                setcookie('vendorname', $vendor['name'], time() + (86400 * 30), '/');
+                setcookie('vendoremail', $vendor['email'], time() + (86400 * 30), '/');
 
                 //* redirect after login
                 header('Location: /project_estately/vendor/dashboard.php?vendor=' . $vendor['email'], true, 307);
