@@ -3,20 +3,44 @@ require __DIR__ . '/../resources/DB/ORM/instance.php';
 foreach (glob(__DIR__ . '/../functionalities/*.php') as $functionalities) require $functionalities;
 
 $vendor = isset($_GET['vendor']) ? $_GET['vendor'] : null;
-// header('Location: project_estately/vendor/index.php');
+// : header('Location: /project_estately/vendor/index.php', true, 307);
 
 if (session_status() == PHP_SESSION_NONE)
     session_start();
 
-// //* create a new session if cookies exist
-// if (session_status() != PHP_SESSION_DISABLED && isset($_COOKIE['name']) && isset($_COOKIE['email'])) {
-//     $_SESSION['name'] = $_COOKIE['name'];
-//     $_SESSION['email'] = $_COOKIE['email'];
-// }
+//* create a new session if cookies exist
+
+if (
+    session_status() != PHP_SESSION_DISABLED && !isset($_COOKIE['vendorname']) && !isset($_COOKIE['vendoremail']) && $vendor
+) {
+    session_unset();
+    header('Location: /project_estately/vendor/index.php', true, 307);
+} else if (session_status() != PHP_SESSION_DISABLED && isset($_COOKIE['vendorname']) && isset($_COOKIE['vendoremail']) && !$vendor) {
+    $_SESSION['vendorname'] = $_COOKIE['vendorname'];
+    $_SESSION['vendoremail'] = $_COOKIE['vendoremail'];
+
+    header('Location: /project_estately/vendor/dashboard.php?vendor=' . $_COOKIE['vendoremail'], true, 307);
+}
 
 if (!isClientLoggedIn('vendor'))
-    header('Location: /project_estately/vendor/index.php');
+    header('Location: /project_estately/vendor/index.php', true, 307);
 
+//* unset session and remove cookies on logout
+if (
+    session_status() == PHP_SESSION_ACTIVE
+    && isset($_SESSION['vendorname']) && isset($_COOKIE['vendorname'])
+    && $_GET['session'] == 'end'
+) {
+    // remove server sessions
+    session_unset();
+    // remove browser cookies
+    setcookie('vendorname', '', time() - 60, '/');
+    setcookie('vendoremail', '', time() - 60, '/');
+
+    // redirect to login page
+    header('Location: /project_estately/vendor/index.php', true, 307);
+    exit();
+}
 
 $rentedApartmentDataSQL = "
     SELECT
@@ -1068,7 +1092,7 @@ CONTENT;
                                     </div>
                                     <button type="button" class="btn btn-primary shadow-none custom-btn" onclick="updateVendor()">Update</button>
                                 </form>
-                                <a class="btn btn-primary shadow-none border-0 w-100 mt-4 d-md-none" href="layouts/vendor/headernav.php?session=end" id="settings-logout">Logout</a>
+                                <a class="btn btn-primary shadow-none border-0 w-100 mt-4 d-md-none" href="/project_estately/vendor/dashboard.php?session=end" id="settings-logout">Logout</a>
                             </div>
                         </div>
                     </div>
@@ -1086,7 +1110,7 @@ CONTENT;
                     </div>
                     <div class="wrapper d-none d-md-flex flex-column align-items-center gap-3">
                         <h1 class="fs-3 mb-0 text-muted" id="logout">
-                            <a class="text-decoration-none" href="/project_estately/layouts/vendor/headernav.php?session=end">
+                            <a class="text-decoration-none" href="/project_estately/vendor/dashboard.php?session=end">
                                 <i class="fa-solid fa-right-from-bracket"></i>
                             </a>
                         </h1>
@@ -1108,6 +1132,391 @@ CONTENT;
                 </div>
                 <div class="modal-body">
 
+                    <form class="d-flex flex-column gap-2" id="editPropertyForm">
+                        <h3>Property Info</h3>
+                        <div class="row row-cols-1 row-cols-lg-3">
+                            <div class="col py-2">
+                                <div class="form-group">
+                                    <label class="form-label" for="editPropertyName">Name</label>
+                                    <input type="text" class="form-control" id="editPropertyName" name="p.name" value="test" data-table="property" data-column="name" placeholder="e.g. John's Studio" required>
+                                    <small class="invalid-feedback"></small>
+                                </div>
+                            </div>
+                            <div class="col py-2">
+                                <div class="form-group">
+                                    <label class="form-label" for="editPropertyType">Type</label>
+                                    <select class="form-select" id="editPropertyType" name="p.type" data-table="property" data-column="type" onchange="(() => {
+                            if($('#editPropertyType').val() == 'Apartment'){
+                                $('#editDraftApartmentInfoSection').removeClass('d-none')
+                                $('#editDraftStudioInfoSection').addClass('d-none')
+                            } else {
+                                $('#editDraftApartmentInfoSection').addClass('d-none')
+                                $('#editDraftStudioInfoSection').removeClass('d-none')
+                            }
+                            
+                        })()" required>
+                                        <option value="null" selected hidden>Select Type</option>
+                                        <option value="Apartment">Apartment</option>
+                                        <option value="Studio">Studio</option>
+                                    </select>
+                                    <small class="invalid-feedback"></small>
+                                </div>
+                            </div>
+                            <div class="col py-2">
+                                <div class="form-group">
+                                    <label class="form-label" for="editPropertyEnlistFor">Enlist For</label>
+                                    <select class="form-select" id="editPropertyEnlistFor" name="p.enlist" data-table="property" data-column="enlisted_for" onchange="(() => {
+                                                                                    
+                            if($('#editPropertyEnlistFor').val() == 'Rent'){
+                                $('#editDraftRentSection').removeClass('d-none')
+                                $('#editDraftLeaseSection').addClass('d-none')
+                            } 
+                            
+                            if($('#editPropertyEnlistFor').val() == 'Lease') {
+                                $('#editDraftRentSection').addClass('d-none')
+                                $('#editDraftLeaseSection').removeClass('d-none')
+                            }
+
+                            if($('#editPropertyEnlistFor').val() == 'Both') {
+                                $('#editDraftRentSection').removeClass('d-none')
+                                $('#editDraftLeaseSection').removeClass('d-none')
+                            }
+                            
+                        })()" required>
+                                        <option value="null" selected hidden>Select Enlist For</option>
+                                        <option value="Rent">Rent</option>
+                                        <option value="Lease">Lease</option>
+                                        <option value="Both">Both</option>
+                                    </select>
+                                    <small class="invalid-feedback"></small>
+                                </div>
+                            </div>
+                            <div class="col py-2">
+                                <div class="form-group">
+                                    <label class="form-label" for="editPropertyAddress">Street Address</label>
+                                    <input type="text" class="form-control" name="ad.address" value="test" id="editPropertyAddress" data-table="address" data-column="street_address" placeholder="e.g. 430/B, West Avenue" required>
+                                    <small class="invalid-feedback"></small>
+                                </div>
+                            </div>
+                            <div class="col py-2">
+                                <div class="form-group">
+                                    <label class="form-label" for="PeditPropertyDivision">Division</label>
+                                    <select class="form-select division" id="editPropertyDivision" name="ad.division" data-table="address" data-column="division" onchange="divisionChanged()" required>
+                                        <option value="null">Select Division</option>
+                                    </select>
+                                    <small class="invalid-feedback"></small>
+                                </div>
+                            </div>
+                            <div class="col py-2">
+                                <div class="form-group">
+                                    <label class="form-label" for="PeditPropertyDistrict">District</label>
+                                    <select class="form-select district" id="editPropertyDistrict" name="ad.district" data-table="address" data-column="district" required>
+                                        <option value="null">Select District</option>
+                                    </select>
+                                    <small class="invalid-feedback"></small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-cols-1 row-cols-lg-2">
+                            <div class="col d-flex justify-content-between gap-1">
+                                <div class="form-group">
+                                    <label class="form-label" for="editPropertyLatitude">Latitude</label>
+                                    <input type="number" class="form-control" name="ad.lat" value="0" data-table="address" data-column="latitude" id="editPropertyLatitude" placeholder="e.g. 23.32351" required>
+                                    <small class="invalid-feedback"></small>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="editPropertyLongitude">Longitude</label>
+                                    <input type="number" class="form-control" name="ad.lon" value="0" data-table="address" data-column="longitude" id="editPropertyLongitude" placeholder="e.g. 90.81356" required>
+                                    <small class="invalid-feedback"></small>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <button type="button" class="btn btn-sm btn-primary py-1" onclick="getCoordinates()">Get <i class="bi bi-geo-fill mb-0"></i></button>
+                                </div>
+                            </div>
+                            <div class="col py-2">
+                                <div class="form-group">
+                                    <label class="form-label" for="editPropertyDescription">Description</label>
+                                    <textarea class="form-control" name="p.description" data-table="property" data-column="description" id="editPropertyDescription" rows="2"></textarea>
+                                    <small class="invalid-feedback"></small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Amenities</h3>
+                        <div class="row row-cols-2 row-cols-lg-4 row-cols-xl-6">
+                            <div class="col pb-3">
+                                <div class="form-group">
+                                    <select class="form-select" id="editPropertyAmenity1" name="am.ac" data-table="amenities" data-column="ac_type">
+                                        <option value="null" hidden="">Select AC Type</option>
+                                        <option value="null">Null</option>
+                                        <option value="Central">Central</option>
+                                        <option value="Split">Split</option>
+                                        <option value="Window">Window</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col py-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="am.elevator" data-table="amenities" data-column="elevator" id="editPropertyAmenity2">
+                                    <label class="form-check-label" for="editPropertyAmenity2">
+                                        Elevator
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col py-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="am.gym" data-table="amenities" data-column="gym" id="editPropertyAmenity3">
+                                    <label class="form-check-label" for="editPropertyAmenity3">
+                                        Gym
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col py-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="am.laundry" data-table="amenities" data-column="laundry" id="editPropertyAmenity4">
+                                    <label class="form-check-label" for="editPropertyAmenity4">
+                                        Laundry
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col py-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="am.microwave" data-table="amenities" data-column="microwave" id="editPropertyAmenity5">
+                                    <label class="form-check-label" for="editPropertyAmenity5">
+                                        Microwave
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col py-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="am.parking" data-table="amenities" data-column="parking" id="editPropertyAmenity6">
+                                    <label class="form-check-label" for="editPropertyAmenity6">
+                                        Parking
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col py-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="am.pharmacy" data-table="amenities" data-column="pharmacy" id="editPropertyAmenity7">
+                                    <label class="form-check-label" for="editPropertyAmenity7">
+                                        Pharmacy
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col py-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="am.prayerarea" data-table="amenities" data-column="prayer_area" id="editPropertyAmenity8">
+                                    <label class="form-check-label" for="editPropertyAmenity8">
+                                        Prayer Area
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col py-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="am.refrigerator" data-table="amenities" data-column="refrigerator" id="editPropertyAmenity9">
+                                    <label class="form-check-label" for="editPropertyAmenity9">
+                                        Refrigerator
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col py-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="am.tv" data-table="amenities" data-column="tv" id="editPropertyAmenity10">
+                                    <label class="form-check-label" for="editPropertyAmenity10">
+                                        TV
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col py-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="am.wheelchair" data-table="amenities" data-column="wheelchair" id="editPropertyAmenity11">
+                                    <label class="form-check-label" for="editPropertyAmenity11">
+                                        Wheelchair
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col py-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="am.wifi" data-table="amenities" data-column="wifi" id="editPropertyAmenity12">
+                                    <label class="form-check-label" for="editPropertyAmenity12">
+                                        Wifi
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <span class="d-none" id="editDraftApartmentInfoSection">
+                            <h3 class="mt-3">Apartment Info</h3>
+                            <div class="row row-cols-1 row-cols-lg-3">
+                                <div class="col py-2">
+                                    <div class="form-group">
+                                        <label class="form-label" for="editApartmentArea">Area</label>
+                                        <input class="form-control" type="number" name="ap.area" data-table="apartment" data-column="area" id="editApartmentArea">
+                                        <small class="invalid-feedback"></small>
+                                    </div>
+                                </div>
+                                <div class="col py-2">
+                                    <div class="form-group">
+                                        <label class="form-label" for="editApartmentBedroom">Bedroom</label>
+                                        <input class="form-control" type="number" name="ap.bedroom" data-table="apartment" data-column="bedroom" id="editApartmentBedroom">
+                                        <small class="invalid-feedback"></small>
+                                    </div>
+                                </div>
+                                <div class="col py-2">
+                                    <div class="form-group">
+                                        <label class="form-label" for="editApartmentBathroom">Bathroom (total)</label>
+                                        <input class="form-control" type="number" name="ap.bathroom" data-table="apartment" data-column="bathroom" id="editApartmentBathroom">
+                                        <small class="invalid-feedback"></small>
+                                    </div>
+                                </div>
+                                <div class="col py-2">
+                                    <div class="form-group">
+                                        <label class="form-label" for="editApartmentAttachedBathroom">Attached Bathroom</label>
+                                        <input class="form-control" type="number" name="ap.attachedbathroom" data-table="apartment" data-column="attached_bathroom" id="editApartmentAttachedBathroom">
+                                        <small class="invalid-feedback"></small>
+                                    </div>
+                                </div>
+                                <div class="col py-2">
+                                    <div class="form-group">
+                                        <label class="form-label" for="editApartmentBalcony">Balcony</label>
+                                        <input class="form-control" type="number" name="ap.balcony" data-table="apartment" data-column="balcony" id="editApartmentBalcony">
+                                        <small class="invalid-feedback"></small>
+                                    </div>
+                                </div>
+                                <div class="col py-2">
+                                    <div class="form-group">
+                                        <label class="form-label" for="editApartmentKitchen">Kitchen</label>
+                                        <input class="form-control" type="number" name="ap.kitchen" data-table="apartment" data-column="kitchen" id="editApartmentKitchen">
+                                        <small class="invalid-feedback"></small>
+                                    </div>
+                                </div>
+                            </div>
+                        </span>
+
+                        <span class="d-none" id="editDraftStudioInfoSection">
+                            <h3 class="mt-3">Studio Info</h3>
+                            <div class="row row-cols-1 row-cols-lg-3">
+                                <div class="col py-2">
+                                    <div class="form-group">
+                                        <label class="form-label" for="editStudioArea">Area</label>
+                                        <input class="form-control" type="number" name="st.area" data-table="studio" data-column="area" id="editStudioArea">
+                                        <small class="invalid-feedback"></small>
+                                    </div>
+                                </div>
+                                <div class="col py-2">
+                                    <div class="form-group">
+                                        <label class="form-label" for="editStudioLength">Length (m)</label>
+                                        <input class="form-control" type="number" name="st.length" data-table="studio" data-column="length" id="editStudioLength">
+                                        <small class="invalid-feedback"></small>
+                                    </div>
+                                </div>
+                                <div class="col py-2">
+                                    <div class="form-group">
+                                        <label class="form-label" for="editStudioBreadth">Breadth (m)</label>
+                                        <input class="form-control" type="number" name="st.breadth" data-table="studio" data-column="breadth" id="editStudioBreadth">
+                                        <small class="invalid-feedback"></small>
+                                    </div>
+                                </div>
+                                <div class="col py-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="st.seperatebathroom" data-table="studio" data-column="seperate_bathroom" id="editStudioSeparateBath">
+                                        <label class="form-check-label" for="editStudioSeparateBath">Separate Bathroom</label>
+                                    </div>
+                                </div>
+                                <div class="col py-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="st.balcony" data-table="studio" data-column="balcony" id="editStudioBalcony">
+                                        <label class="form-check-label" for="editStudioBalcony">Balcony</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </span>
+
+                        <span class="d-none" id="editDraftRentSection">
+                            <h3 class="mt-3">Rent Info</h3>
+                            <div class="row">
+                                <div class="col-12 py-2">
+                                    <div class="form-group">
+                                        <label class="form-label" for="editRentTerms">Term(s) for renting</label>
+                                        <textarea class="form-control" name="ri.terms" data-table="rent_info" data-column="terms" id="editRentTerms"></textarea>
+                                        <small class="invalid-feedback"></small>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-3 py-2">
+                                    <div class="form-group">
+                                        <label class="form-label" for="editRent">Rent</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">BDT</span>
+                                            <input class="form-control" type="number" name="ri.rent" data-table="rent_info" data-column="rent" id="editRent">
+                                        </div>
+                                        <small class="invalid-feedback"></small>
+                                    </div>
+                                </div>
+                            </div>
+                        </span>
+
+                        <span class="d-none" id="editDraftLeaseSection">
+                            <h3 class="mt-3">Lease Info</h3>
+                            <div class="row">
+                                <div class="col-12 py-2">
+                                    <div class="form-group">
+                                        <label class="form-label" for="editLeaseTerms">Term(s) for leasing</label>
+                                        <textarea class="form-control" name="li.terms" data-table="lease_info" data-column="terms" id="editLeaseTerms"></textarea>
+                                        <small class="invalid-feedback"></small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row row-cols-1 row-cols-lg-3">
+                                <div class="col py-2">
+                                    <div class="form-group">
+                                        <label class="form-label" for="editLease">Lease Sum</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">BDT</span>
+                                            <input class="form-control" type="number" name="li.lease" data-table="lease_info" data-column="lease" id="editLease">
+                                        </div>
+                                        <small class="invalid-feedback"></small>
+                                    </div>
+                                </div>
+                                <div class="col py-2">
+                                    <div class="form-group">
+                                        <label class="form-label" for="editTenure">Tenure</label>
+                                        <div class="input-group">
+                                            <input class="form-control" type="number" name="li.tenure" data-table="lease_info" data-column="tenure_months" id="editTenure">
+                                            <span class="input-group-text">Month(s)</span>
+                                        </div>
+                                        <small class="invalid-feedback"></small>
+                                    </div>
+                                </div>
+                                <div class="col py-2">
+                                    <div class="form-group">
+                                        <label for="editTerminationPercentage" class="form-label">Termination %</label>
+                                        <div class="input-group">
+                                            <div class="form-control">
+                                                <input type="range" class="form-range" value="5" min="0" max="100" step="1" id="editTerminationPercentage" name="li.terminationpercentage" data-table="lease_info" data-column="termination_percentage" onchange="(() => {
+                                    $('#editTerminationPercentage').parent().siblings('span').html($('#editTerminationPercentage').val() + '%')
+                                    })()">
+                                            </div>
+                                            <span class="input-group-text">%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </span>
+
+                        <h4 class="text-info">Feature your property</h4>
+                        <div class="row">
+                            <div class="col py-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="editFeatureOptIn">
+                                    <label class="form-check-label lead" for="editFeatureOptIn">
+                                        Feature this property to the nearby customers in the featured properties section of the landing page and gain more exposure with as little as <strong>BDT 499</strong>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <button type="button" onclick="addProperty()">OK</button> -->
+                    </form>
+
 
 
                 </div>
@@ -1124,8 +1533,136 @@ CONTENT;
 
     <script>
         $(function() {
-            new bootstrap.Modal(document.getElementById('addPropertyModal')).show()
+
+
+            fetch('https://bdapi.p.rapidapi.com/v1.1/divisions', {
+                    method: 'GET',
+                    headers: {
+                        'X-RapidAPI-Key': '4e5af1f078msh5096b16206fe69ep162351jsn1bbd3c374daf',
+                        'X-RapidAPI-Host': 'bdapi.p.rapidapi.com'
+                    }
+                })
+                .then(response => response.json())
+                .then(response => {
+                    response.data.map(arr => {
+                        $('#editPropertyDivision').append(`<option value="${arr.division}">${arr.division}</option>`)
+                    })
+                })
+                .catch(err => console.error(err))
         })
+
+        let divisionChanged = async () => {
+            $('#loadingAnimation').removeClass('d-none')
+
+            await fetch(`https://bdapi.p.rapidapi.com/v1.1/division/${$('#editPropertyDivision').val()}`, {
+                    method: 'GET',
+                    headers: {
+                        'X-RapidAPI-Key': '4e5af1f078msh5096b16206fe69ep162351jsn1bbd3c374daf',
+                        'X-RapidAPI-Host': 'bdapi.p.rapidapi.com'
+                    }
+                })
+                .then(response => response.json())
+                .then(response => {
+                    let html = `<option value="null">Select District</option>`
+                    response.data.map(arr => {
+                        html += `<option value="${arr.district}">${arr.district}</option>`
+                    })
+
+                    $('#editPropertyDistrict').html(html)
+                })
+                .catch(err => console.error(err))
+
+            $('#loadingAnimation').addClass('d-none')
+        }, getCoordinates = () => {
+
+            // get position coordinates from browser navigator if exists
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    console.log(pos)
+                    // set position coordinates to form inputs
+                    $('#editPropertyLatitude').val(pos.lat)
+                    $('#editPropertyLongitude').val(pos.lng)
+                });
+            }
+        }, addProperty = () => {
+            let uuid = ((length = 10) => {
+                    return Math.random().toString(16).substr(2, length);
+                })(),
+                dataset = {
+                    property: {
+                        id: uuid,
+                        vendor_email: new URLSearchParams(window.location.search).get('vendor'),
+
+                    },
+                    address: {
+                        id: uuid
+                    },
+                    apartment: {
+                        id: uuid
+                    },
+                    studio: {
+                        id: uuid
+                    },
+                    rent_info: {
+                        id: uuid,
+                        reservation_percentage: 0.05
+                    },
+                    lease_info: {
+                        id: uuid,
+                        reservation_percentage: 0.05
+                    }
+                }
+
+            for (const table of ['property', 'address', 'apartment', 'studio', 'amenity', 'rent_info', 'lease_info']) {
+
+                $('#editPropertyForm').
+                find(`input[data-table=${table}], 
+                    textarea[data-table=${table}], 
+                    select[data-table=${table}]`).each((ind, item) => {
+                    dataset[table][$(item).attr('data-column')] = $(item).is(':checkbox') ? $(item).is(':checked') : $(item).val()
+                })
+            }
+
+            let formData = {
+                property: dataset.property,
+                address: dataset.address,
+                ...($('#editPropertyType').val() == 'Apartment' ? {
+                    apartment: dataset.apartment
+                } : null),
+                ...($('#editPropertyType').val() == 'Studio' ? {
+                    studio: dataset.studio
+                } : null),
+                ...($('#editPropertyEnlistFor').val() == 'Rent' || $('#editPropertyEnlistFor').val() == 'Both' ? {
+                    rent_info: dataset.rent_info
+                } : null),
+                ...($('#editPropertyEnlistFor').val() == 'Lease' || $('#editPropertyEnlistFor').val() == 'Both' ? {
+                    lease_info: dataset.lease_info
+                } : null)
+            }
+
+            fetch('./api/vendor/create/newproperty.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...{
+                            formData
+                        }
+                    },
+                })
+                .then(response => response.json())
+                .then(response => {
+                    console.log(response)
+                }).catch(err => console.error(err))
+        }
+    </script>
+    <script>
+        // $(function() {
+        //     new bootstrap.Modal(document.getElementById('addPropertyModal')).show()
+        // })
 
         let saveDraftProperty = propertyID => {
                 console.log(propertyID)
@@ -1137,6 +1674,7 @@ CONTENT;
                 console.log(propertyID)
             },
             updateVendor = async () => {
+                $('#loadingAnimation').removeClass('d-none')
 
                 await fetch('./../api/vendor/update/vendorprofile.php', {
                         method: 'POST',
@@ -1149,8 +1687,10 @@ CONTENT;
                     })
                     .then(response => response.json())
                     .then(res => {
-                        console.log(res)
+                        // console.log(res)
+                        $('#loadingAnimation').addClass('d-none')
                     })
+
             }
     </script>
 </body>

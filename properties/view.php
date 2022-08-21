@@ -267,7 +267,7 @@ BTNL;
                     <div class="position-absolute top-0 end-0 p-3 bf-blur-lg bg-secondary bg-opacity-25" style="border-bottom-left-radius: 0.25rem;">
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" role="switch" id="directionMode" onchange="mapViewChanged(this)">
-                            <label class="form-check-label font-monospace d-none d-md-inline-block" style="margin-top: 3px;" for="directionMode">Directions Mode</label>
+                            <label class="form-check-label font-monospace d-none d-md-inline-block text-light" style="margin-top: 3px;" for="directionMode">Directions Mode</label>
                         </div>
                     </div>
                     <?php
@@ -291,9 +291,9 @@ BTNL;
 
     <?php require __DIR__ . '/../layouts/app/footer.php'; ?>
     <script type="text/javascript">
-        $(function() {
-            new bootstrap.Modal(document.getElementById('rentModal')).show()
-        })
+        // $(function() {
+        //     new bootstrap.Modal(document.getElementById('rentModal')).show()
+        // })
 
         let mapViewChanged = (e) => {
                 let mapSrc = "<?php echo $placeModeMapSrc; ?>",

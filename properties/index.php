@@ -241,7 +241,7 @@ CONTENT;
                                             if(res?.error) 
                                                 return console.error(res.error)
 
-                                            // insert html
+                                            //* insert html
                                             $('#propertyGrid').children().last('div.col').before(res.data)
 
                                             res.eoq ? $(this).siblings('span').removeClass('d-none').siblings('div').remove() : null

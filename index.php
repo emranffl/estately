@@ -102,7 +102,7 @@ R::close();
 			foreach ($retrievedFeaturedData as $counter => $row) {
 				echo <<<BLOCK
 					<div class="col p-2" id="featured-card">
-						<div class="card hvr-float">
+						<div class="card hvr-float shadow" style="height: 35rem">
 							<img class="card-img-top" src="$imgArr[$counter]" alt="...">
 							<div class="card-body h-100 d-flex flex-column justify-content-between">
 								<h5 class="card-title">{$row['name']}</h5>

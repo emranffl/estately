@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 
 /* NOTES */
 /* Primary Color for Vendor:  #f1f1f1*/
@@ -6,7 +6,7 @@
 /* Accent Color for Vendor:  #cf33aa*/
 
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 #left {
@@ -41,13 +41,13 @@ body {
 }
 
 #item1 {
-  background-image: url("https://images.pexels.com/photos/3861954/pexels-photo-3861954.jpeg?auto=compress&cs=tinysrgb&w=600");
+  background-image: url('https://images.pexels.com/photos/3861954/pexels-photo-3861954.jpeg?auto=compress&cs=tinysrgb&w=600');
 }
 #item2 {
-  background-image: url("https://images.pexels.com/photos/1855582/pexels-photo-1855582.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load");
+  background-image: url('https://images.pexels.com/photos/1855582/pexels-photo-1855582.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load');
 }
 #item3 {
-  background-image: url("https://images.pexels.com/photos/3778680/pexels-photo-3778680.jpeg?auto=compress&cs=tinysrgb&w=600");
+  background-image: url('https://images.pexels.com/photos/3778680/pexels-photo-3778680.jpeg?auto=compress&cs=tinysrgb&w=600');
 }
 
 .carousal-item-bg {
@@ -63,7 +63,7 @@ body {
   text-decoration: none;
   font-weight: 600;
 }
-#right a:hover{
+#right a:hover {
   color: blue;
 }
 #signup-form input {
@@ -77,22 +77,22 @@ body {
   border: 1px solid #000;
   background-color: #ddff552d;
 }
-.custom-btn{
+.custom-btn {
+  background-color: #deff55 !important;
+  color: #000;
+  border: 2px solid transparent;
+}
+.custom-btn:hover {
   background-color: #deff55;
   color: #000;
   border: 2px solid transparent;
 }
-.custom-btn:hover{
-  background-color: #deff55;
-  color: #000;
-  border: 2px solid transparent;
-}
-.custom-btn:focus{
+.custom-btn:focus {
   background-color: #deff55;
   color: #000;
   border: 2px solid #000;
 }
-.custom-btn:active{
- background-color: #deff55;
- color: #000;
+.custom-btn:active {
+  background-color: #deff55;
+  color: #000;
 }
