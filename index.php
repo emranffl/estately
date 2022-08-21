@@ -52,6 +52,9 @@ R::close();
 			right: 0;
 			opacity: 0;
 		}
+		.test{
+			height: 40% !important;
+		}
 	</style>
 </head>
 <?php require 'layouts/app/headernav.php'; ?>
@@ -103,7 +106,10 @@ R::close();
 				echo <<<BLOCK
 					<div class="col p-2" id="featured-card">
 						<div class="card hvr-float shadow" style="height: 35rem">
-							<img class="card-img-top" src="$imgArr[$counter]" alt="...">
+							
+							<img class="test card-img-top" src="$imgArr[$counter]"  alt="...">
+							
+						
 							<div class="card-body h-100 d-flex flex-column justify-content-between">
 								<h5 class="card-title">{$row['name']}</h5>
 								<p class="card-text fs-7">{$row['description']}</p>
