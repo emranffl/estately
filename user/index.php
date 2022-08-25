@@ -142,7 +142,7 @@ if (isset($_POST['login']) && $_POST['login'] == 'true') {
             </div>
             <div class="col">
                 <div class="d-flex justify-content-center align-items-center h-100">
-                    <img src="resources/images/login-decoration-image.webp" class="img-fluid" alt="decoration image">
+                    <img src="resources/images/login-decoration-image.svg" class="img-fluid" alt="decoration image">
                 </div>
             </div>
         </div>

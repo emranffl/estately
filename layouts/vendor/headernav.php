@@ -1,25 +1,4 @@
-<?php require __DIR__ . '/../masterheader.php';
-
-if (session_status() == PHP_SESSION_NONE)
-	session_start();
-
-//* unset session and remove cookies on logout
-if (
-	session_status() == PHP_SESSION_ACTIVE
-	// && isset($_SESSION['vendorname']) && isset($_COOKIE['vendorname'])
-	&& $_GET['session'] == 'end'
-) {
-	// remove server sessions
-	session_unset();
-	// remove browser cookies
-	setcookie('vendorname', '', time() - 60, '/');
-	setcookie('vendoremail', '', time() - 60, '/');
-
-	// redirect to login page
-	header('Location: /project_estately/vendor/index.php', true, 307);
-	exit();
-}
-?>
+<?php require __DIR__ . '/../masterheader.php'; ?>
 
 <html lang="en" dir="ltr">
 

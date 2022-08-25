@@ -34,7 +34,9 @@ R::close();
     <section class="container-fluid g-0" id="master">
         <div class="row g-0" id="master-row">
             <div class="col col-9 d-md-none p-4 primary-bg">
-                <h1 class="fs-3 mb-0">Estately</h1>
+                <a href="/project_estately/index.php" class="text-decoration-none">
+                    <h1 class="fs-3 mb-0">Estately</h1>
+                </a>
             </div>
             <div class="col col-3 d-md-none d-flex justify-content-center align-items-center primary-bg">
                 <div class="user-image"></div>
@@ -203,23 +205,23 @@ R::close();
                             <form id="settings-form">
                                 <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label disabled mb-1">Email address</label>
-                                    <input class="form-control cursor-denied" type="text" placeholder="example@gmail.com" aria-label="Disabled input example" disabled>
+                                    <input class="form-control cursor-denied" type="text" placeholder="example@gmail.com" disabled>
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleInputPassword1" class="form-label mb-1">Password</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1">
+                                    <input type="password" class="form-control" id="exampleInputPassword1" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label mb-1">Name</label>
-                                    <input class="form-control cursor-denied" type="text" placeholder="Mrs. Karen " aria-label="Disabled input example" disabled>
+                                    <input class="form-control cursor-denied" type="text" placeholder="Mrs. Karen " disabled>
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label mb-1">Contact No</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                    <input type="email" class="form-control" id="exampleInputEmail1" required>
                                 </div>
                                 <div class="mb-4">
                                     <label for="exampleInputEmail1" class="form-label mb-1">Document ID</label>
-                                    <input class="form-control cursor-denied" type="text" placeholder="AB03210321" aria-label="Disabled input example" disabled>
+                                    <input class="form-control cursor-denied" type="text" placeholder="AB03210321" disabled>
                                 </div>
                                 <button type="submit" class="btn btn-primary shadow-none custom-btn">Update</button>
                             </form>
@@ -229,7 +231,9 @@ R::close();
                 </div>
             </div>
             <div class="col col-12 col-md-1 col-lg-1 order-md-1 position-fixed primary-bg" id="nav">
-                <h1 class="d-none d-md-block fs-5 mb-0">Estately</h1>
+                <a href="/project_estately/index.php" class="text-decoration-none">
+                    <h1 class="d-none d-md-block fs-5 mb-0">Estately</h1>
+                </a>
                 <div class="nav-links d-flex justify-content-evenly align-items-center p-4">
                     <h1 class="mb-0 active" id="nav-dashboard"><i class="fa-solid fa-clipboard-check"></i></h1>
                     <h1 class="mb-0" id="nav-customer"><i class="fa-solid fa-users"></i></h1>

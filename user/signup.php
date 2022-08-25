@@ -86,7 +86,7 @@ if (isset($_POST['signup']) && $_POST['signup'] == 'true') {
             setcookie('email', $email, time() + (86400 * 30), '/');
 
             //* redirect after signup
-            header('Location: /project_estately/user/dashboard.php', true, 307);
+            header('Location: /project_estately/user/dashboard.php?user=' . $email, true, 307);
 
             // stop further php execution
             exit();
