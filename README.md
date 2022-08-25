@@ -34,5 +34,5 @@ https://youtube.com/playlist?list=PL4cUxeGkcC9gksOX3Kd9KPo-O68ncT05o
 - head on to your local server (phpmyadmin)
 - create a DB namely '**project_estately**'
 - select newly created DB
-- import the DB file provided by the developer
+- import the DB file provided in the `resources/DB` folder as `project_estately.sql`
 - head on to the browser and enter `localhost/project_estately`
