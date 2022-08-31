@@ -18,7 +18,7 @@ function getPropertyCards($propertiesArray)
                     <a href="properties/view.php?id={$property['id']}">
                         <img src="resources/images/default-property.png" class="card-img-top" alt="...">
                     </a>
-                    <span class="badge bg-secondary bg-opacity-25 bf-blur-lg position-absolute top-0 end-0 rounded-0 text-dark">
+                    <span class="badge bg-secondary bg-opacity-25 bf-blur-lg position-absolute top-0 end-0 rounded-0 text-light">
                         {$propertyEnlistedFor}
                     </span>
                 </div>

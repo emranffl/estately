@@ -97,17 +97,17 @@ R::close();
 
 			$imgArr = array(
 				"https://images.unsplash.com/photo-1611095210561-67f0832b1ca3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-				"https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800",
+				"https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load",
 				"https://images.pexels.com/photos/4078615/pexels-photo-4078615.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load",
-				"https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=800"
+				"https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load"
 			);
 
 			foreach ($retrievedFeaturedData as $counter => $row) {
 				echo <<<BLOCK
 					<div class="col p-2" id="featured-card">
-						<div class="card hvr-float shadow" style="height: 35rem">
+						<div class="card hvr-float shadow h-100">
 							
-							<img class="test card-img-top" src="$imgArr[$counter]"  alt="...">
+							<img class="test card-img-top" style="height: 8rem!important" src="$imgArr[$counter]"  alt="...">
 							
 						
 							<div class="card-body h-100 d-flex flex-column justify-content-between">
