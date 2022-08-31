@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 25, 2022 at 06:47 PM
+-- Generation Time: Aug 31, 2022 at 07:39 PM
 -- Server version: 5.7.39
 -- PHP Version: 7.4.30
 
@@ -515,11 +515,11 @@ CREATE TABLE `featured` (
 --
 
 INSERT INTO `featured` (`id`, `log_id`, `paid_amount`, `paid_at`, `status`) VALUES
-('06fHm22UeX', 'UEUEDkEZ2K', '22000.00', '2022-08-20 21:55:00', 'active'),
-('0kt6Pbxim1', 'Rt9uHnEI0b', '10000.00', '2022-08-20 21:55:00', 'active'),
-('0XDpVJLSOY', 'DmECFZ3g91', '5600.00', '2022-08-20 21:55:00', 'active'),
 ('2e66SeY7Zx', 'fxag3vjeG3', '1200.00', '2022-08-20 21:55:00', 'active'),
-('2Q6GB2tPHQ', 'ASa2UHd5mi', '7000.00', '2022-08-20 21:55:00', 'active');
+('2RhCoFY7Nq', 'UEUEDkEZ2K', '22000.00', '2022-08-20 21:55:00', 'active'),
+('2UEJ9k7EQW', 'Rt9uHnEI0b', '10000.00', '2022-08-20 21:55:00', 'active'),
+('7sY7S29wXa', 'ASa2UHd5mi', '7000.00', '2022-08-20 21:55:00', 'active'),
+('JVvABQPbK8', 'DmECFZ3g91', '5600.00', '2022-08-20 21:55:00', 'active');
 
 -- --------------------------------------------------------
 
@@ -867,8 +867,8 @@ INSERT INTO `property` (`id`, `name`, `type`, `vendor_email`, `description`, `cr
 ('0XDpVJLSOY', 'Mill End', 'Apartment', 'usyss.ywxa@example.com', 'The house is equipped with a large kitchen and three bathrooms, it also has a cozy living room, five bedrooms, a small dining room, an office and a small storage room.', '2008-09-24 11:45:23', '2022-08-21 00:12:07', 'Rent', 'leased', 'public'),
 ('2e66SeY7Zx', 'Carl Nunez', 'Apartment', 'oeyi2@example.com', 'Tony is shopping. Tony is walking. ', '2008-08-04 23:52:06', '2008-07-02 22:13:24', 'Lease', 'vacant', 'draft'),
 ('2Q6GB2tPHQ', 'Meadow View', 'Studio', 'oeyi2@example.com', 'The building is square shaped. The house is partially surrounded by stylish gardens on two sides.\nThe second floor is bigger than the first, which creates a stylish overhang on two sides of the house. This floor has a different style than the floor below.', '2008-01-15 10:46:03', '2022-08-21 00:11:11', 'Rent', 'rented', 'public'),
-('2RhCoFY7Nq', 'Caroline Nash', 'Apartment', 'iuub@example.com', NULL, '2008-11-02 01:47:43', '2008-06-23 06:13:35', 'Rent', 'vacant', 'public'),
-('2UEJ9k7EQW', 'Lucas Rivers', 'Apartment', 'imefxh@example.com', 'John bought new car. Anne has free time. Tony has free time. Tony has free time. Tony has free time. ', '2008-04-13 09:10:46', '2022-08-12 11:37:27', 'Rent', 'vacant', 'public'),
+('2RhCoFY7Nq', 'The Ivies', 'Apartment', 'iuub@example.com', 'From the outside this house looks gorgeous. It has been built with white stones and has tan stone decorations. Small, rounded windows add to the overall look of the house and have been added to the house in a fairly symmetrical pattern.', '2008-11-02 01:47:43', '2022-08-31 19:09:43', 'Rent', 'vacant', 'public'),
+('2UEJ9k7EQW', 'The Cherries', 'Apartment', 'imefxh@example.com', 'The house is equipped with an old-fashioned kitchen and one modern bathroom, it also has a huge living room, four bedrooms, a roomy dining room and a grand garage.', '2008-04-13 09:10:46', '2022-08-31 19:14:03', 'Rent', 'vacant', 'public'),
 ('2X6X6M73uD', 'Emma Anthony', 'Apartment', 'iuub@example.com', 'Tony bought new car. Anne is shopping. Tony has free time. John has free time. John has free time. ', '2008-05-03 06:29:13', '2022-08-18 19:35:34', 'Rent', 'vacant', 'draft'),
 ('386PruOGWL', 'Kathleen Novak', 'Apartment', 'iuub@example.com', 'John has free time. Anne bought new car. Anne is walking. John has free time. John has free time. ', '2008-04-25 16:29:31', '2022-08-12 11:37:27', 'Rent', 'vacant', 'draft'),
 ('40tHGLfPWD', 'Dianna Oliver', 'Apartment', 'ippb@example.com', 'Anne is shopping. Anne is walking. ', '2008-04-26 03:55:51', '2022-08-12 11:37:27', 'Lease', 'vacant', 'draft'),
@@ -878,7 +878,7 @@ INSERT INTO `property` (`id`, `name`, `type`, `vendor_email`, `description`, `cr
 ('6NFI2L4Cd6', 'Cameron Miranda', 'Apartment', 'oeyi2@example.com', 'John has free time. Anne is shopping. Anne is walking. Anne has free time. Tony has free time. ', '2008-11-02 20:30:34', '2022-08-12 11:37:27', 'Rent', 'leased', 'public'),
 ('7HUhJ9Ap2P', 'Melissa Atkinson', 'Studio', 'pbkwri@example.com', 'John is walking. Tony is walking. Anne bought new car. ', '2008-04-28 14:59:48', '2022-08-12 11:37:27', 'Lease', 'vacant', 'draft'),
 ('7PWHoL1lbj', 'Franklin Jones', 'Apartment', 'imefxh@example.com', 'John bought new car. Tony is shopping. Anne is shopping. Anne has free time. Tony bought new car. ', '2008-01-09 15:34:19', '2022-08-12 11:37:27', 'Rent', 'leased', 'public'),
-('7sY7S29wXa', 'Roberta Harrison', 'Studio', 'usyss.ywxa@example.com', 'Anne bought new car. Anne has free time. ', '2008-03-20 23:50:36', '2022-08-12 11:37:27', 'Rent', 'vacant', 'public'),
+('7sY7S29wXa', 'Mill End', 'Studio', 'usyss.ywxa@example.com', 'The house is equipped with a large kitchen and three bathrooms, it also has a cozy living room, five bedrooms, a small dining room, an office and a small storage room.', '2008-03-20 23:50:36', '2022-08-31 19:22:10', 'Rent', 'vacant', 'public'),
 ('BPGJq3j7QY', 'Colby Wilkerson', 'Apartment', 'iuub@example.com', 'John bought new car. John is walking. Tony has free time. ', '2008-06-17 23:56:28', '2022-08-18 19:35:34', 'Rent', 'vacant', 'draft'),
 ('CpVCTU6BV3', 'Luz Olson', 'Apartment', 'mjsq37@example.com', 'John is shopping. Anne is walking. John has free time. Tony has free time. Anne bought new car. ', '2008-07-01 01:47:02', '2022-08-12 11:37:27', 'Rent', 'vacant', 'public'),
 ('D2CVG7MK3X', 'Moses Downs', 'Apartment', 'mjsq37@example.com', 'Tony is walking. Anne bought new car. Anne has free time. Tony has free time. John has free time. ', '2008-11-19 05:59:20', '2022-08-18 19:35:34', 'Lease', 'vacant', 'draft'),
@@ -894,7 +894,7 @@ INSERT INTO `property` (`id`, `name`, `type`, `vendor_email`, `description`, `cr
 ('jG25oTGYMK', 'Joni Roberts', 'Apartment', 'pbkwri@example.com', 'John has free time. Anne is walking. ', '2008-08-31 03:06:00', '2022-08-12 11:37:27', 'Rent', 'vacant', 'draft'),
 ('JOFH9TTM5C', 'Rose Kirk', 'Studio', 'vpidu26@example.com', 'Tony bought new car. John bought new car. Tony bought new car. John bought new car. John has free time. ', '2008-09-12 02:42:17', '2022-08-12 11:37:27', 'Lease', 'vacant', 'draft'),
 ('JTQ37vPTFE', 'Arlene Andersen', 'Studio', 'pbkwri@example.com', 'John has free time. Anne is shopping. John has free time. ', '2008-06-09 14:15:56', '2022-08-12 11:37:27', 'Rent', 'vacant', 'draft'),
-('JVvABQPbK8', 'Randal Jackson', 'Studio', 'usyss.ywxa@example.com', 'John has free time. John is walking. ', '2008-04-11 09:54:28', '2022-08-12 11:37:27', 'Rent', 'vacant', 'public'),
+('JVvABQPbK8', 'Meadow View', 'Studio', 'usyss.ywxa@example.com', 'The building is square shaped. The house is partially surrounded by stylish gardens on two sides. The second floor is bigger than the first, which creates a stylish overhang on two sides of the house. This floor has a different style than the floor below.', '2008-04-11 09:54:28', '2022-08-31 19:16:57', 'Rent', 'vacant', 'public'),
 ('oa6e6bSM26', 'Andre Bush', 'Apartment', 'iuub@example.com', NULL, '2008-12-29 19:43:31', '2022-08-12 11:37:27', 'Rent', 'rented', 'public'),
 ('QMLFW3hgMV', 'Elena Huber', 'Apartment', 'yrwzoaks@example.com', 'John bought new car. Anne is shopping. Anne bought new car. Tony bought new car. Tony has free time. ', '2008-07-06 02:04:45', '2022-08-12 11:37:27', 'Both', 'rented', 'public'),
 ('qPB53UUBgB', 'Keri Williams', 'Studio', 'imefxh@example.com', 'Anne bought new car. Tony bought new car. ', '2008-10-04 21:29:42', '2022-08-12 11:37:27', 'Lease', 'leased', 'public'),

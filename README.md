@@ -35,4 +35,7 @@ https://youtube.com/playlist?list=PL4cUxeGkcC9gksOX3Kd9KPo-O68ncT05o
 - create a DB namely '**project_estately**'
 - select newly created DB
 - import the DB file provided in the `resources/DB` folder as `project_estately.sql`
+- create user with appropriate username and password as per `.env` file provided by the developer with CRUD privileges 
 - head on to the browser and enter `localhost/project_estately`
+
+### Hosted at: https://emranffl.com/project_estately/ 
