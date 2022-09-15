@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 31, 2022 at 07:39 PM
+-- Generation Time: Sep 15, 2022 at 02:56 PM
 -- Server version: 5.7.39
 -- PHP Version: 7.4.30
 
@@ -19,9 +19,8 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `project_estately`
+-- Database: `emranffl_project_estately`
 --
-
 -- --------------------------------------------------------
 
 --

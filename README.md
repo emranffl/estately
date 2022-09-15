@@ -29,13 +29,13 @@ https://youtube.com/playlist?list=PL4cUxeGkcC9gksOX3Kd9KPo-O68ncT05o
 
 ## Setting Up the Workspace:
 
-- clone the repo to `C://xampp/htdocs` folder
+- clone the repo to `C://xampp/htdocs/project/` folder
 - place the `.env` file provided by the developer in the root directory
 - head on to your local server (phpmyadmin)
 - create a DB namely '**project_estately**'
 - select newly created DB
 - import the DB file provided in the `resources/DB` folder as `project_estately.sql`
 - create user with appropriate username and password as per `.env` file provided by the developer with CRUD privileges 
-- head on to the browser and enter `localhost/project_estately`
+- head on to the browser and enter `localhost/project/estately`
 
-### Hosted at: https://emranffl.com/project_estately/ 
+### Hosted at: https://demo.emranffl.com/project/estately/ 

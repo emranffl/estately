@@ -7,5 +7,5 @@ require_once __DIR__ . '/../../../functionalities/parsedotenv.php';
 R::setup(
     getenv('DATABASE_DNS') . ':host=' . getenv('HOST') . ';dbname=' . getenv('DB_NAME'),
     getenv('DB_USER'),
-    getenv('DB_PASSWORD')
+    getenv('USER_PASSWORD')
 );

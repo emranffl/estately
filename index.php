@@ -10,10 +10,6 @@ try {
 	consoleError($e->getMessage());
 }
 
-// consoleLog($var);
-// Connection used by saleh
-$conn = new mysqli("localhost", "root", "", "project_estately");
-
 // close connection
 R::close();
 ?>

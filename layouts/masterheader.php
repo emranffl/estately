@@ -4,7 +4,7 @@
 	<base href="<?php echo
 				isset($_SERVER["HTTPS"]) ?
 					'https://' . $_SERVER['HTTP_HOST'] : 'http://' . $_SERVER['HTTP_HOST'];
-				?>/project_estately/">
+				?>/project/estately/">
 	<!-- <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"> -->
 
 	<meta charset="UTF-8">
