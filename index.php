@@ -48,7 +48,8 @@ R::close();
 			right: 0;
 			opacity: 0;
 		}
-		.test{
+
+		.test {
 			height: 40% !important;
 		}
 	</style>
@@ -109,7 +110,7 @@ R::close();
 							<div class="card-body h-100 d-flex flex-column justify-content-between">
 								<h5 class="card-title">{$row['name']}</h5>
 								<p class="card-text fs-7">{$row['description']}</p>
-								<a href="/project_estately/properties/view.php?id={$row['id']}" class="btn btn-sm text-primary shadow-sm py-1">View</a>
+								<a href="properties/view.php?id={$row['id']}" class="btn btn-sm text-primary shadow-sm py-1">View</a>
 							</div>
 						</div>
 					</div>
